@@ -1,0 +1,107 @@
+<section id="tooltip-validation">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row mb-3 d-flex justify-content-end">
+              <span style="float: right"> <b>Ref No:</b> 1234567890</span>
+            </div>
+            <form class="needs-validation mt-2" #orderForm="ngForm"
+              (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)">
+              <div class="form-row">
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip01">Select Item</label>
+                  <select name="fname" class="form-control" id="validationTooltip01" [(ngModel)]="model.itemName"
+                    #fname="ngModel" [ngClass]="{
+                      'is-invalid': orderForm.submitted && fname.invalid,
+                      'is-valid': orderForm.submitted && !fname.invalid
+                    }" required (change)="qytValue(model.itemName)">
+                    <option *ngFor="let data of itemArray" value="{{data.id}}"> {{data.itemName}} </option>
+                  </select>
+                  <!-- <ng-multiselect-dropdown [placeholder]="'Search for item..'" [settings]="dropdownSettings"
+                    [data]="itemArray" (onSelect)="onItemSelect($event)">
+                  </ng-multiselect-dropdown> -->
+                  <div *ngIf="orderForm.submitted && !fname.errors?.required" class="valid-tooltip">
+                    Looks good!
+                  </div>
+                </div>
+
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip0"> Batch</label>
+                  <input type="number" id="hidden-label-form-5" class="form-control" name="batchName"
+                    [(ngModel)]="model.batchName" #batchName="ngModel" required />
+                </div>
+
+                <div class="col-md-2 mb-1 form-group">
+                  <div class="form-group">
+                    <label for="validationTooltip01">Quantity Per Pack</label>
+                    <input type="number" id="hidden-label-form-5" class="form-control" name="QtyPerPack"
+                      [(ngModel)]="model.QtyPerPack" #QtyPerPack="ngModel" required />
+                  </div>
+                </div>
+
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip01">Batch No</label>
+                  <input type="number" id="hidden-label-form-5" class="form-control" name="batchNo"
+                    [(ngModel)]="model.batchNo" #batchNo="ngModel" required />
+                </div>
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip01">Expiry</label>
+                  <input type="text" maxlength='5' placeholder="MM/YY" class="form-control" name="expiry"
+                    [(ngModel)]="expiryDate" #expiry="ngModel" (keyup)="onExpiryFormate($event,orderForm);" (focusout) ="datevalidation($event)"  required
+                    [ngClass]="{
+                      'is-invalid': orderForm.submitted && expiry.invalid,
+                      'is-valid': orderForm.submitted && !expiry.invalid
+                    }" />
+                  <div *ngIf="orderForm.submitted && (expiry.invalid || expiry.errors?.required)"
+                    class="invalid-tooltip">
+                    Please provide a valids date.
+                  </div>
+                  <div *ngIf="expiryDateFlag" style="color: #fff;background-color: rgba(245, 82, 82, 0.9);">
+                    Please provide a valid Month.
+                  </div>
+                </div>
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip01">MRP</label>
+                  <input type="number" id="hidden-label-form-5" class="form-control" name="mrp" [(ngModel)]="model.mrp"
+                    #mrp="ngModel" required />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip01">Purchase Rate</label>
+                  <input type="number" id="hidden-label-form-5" class="form-control" name="purchaseRate"
+                    [(ngModel)]="model.purchaseRate" #purchaseRate="ngModel" required />
+                </div>
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip01">Sale Rate</label>
+                  <input type="number" id="hidden-label-form-5" class="form-control" name="saleRate"
+                    [(ngModel)]="model.saleRate" #saleRate="ngModel" required />
+                </div>
+                <!-- <div class="col-md-3 mb-1 form-group">
+                  <label for="validationTooltip01">Special Sale Rate</label>
+                </div> -->
+                <div class="col-md- mb-1 form-group">
+                  <label for="validationTooltip01">Available Stock</label>
+                  <input type="number" id="hidden-label-form-5" class="form-control" name="available"
+                    [(ngModel)]="model.availableStock" #available="ngModel" required />
+                </div>
+              </div>
+              <button type="submit" *ngIf="!CustomeId" class="btn btn-primary mr-2 mt-2">
+                <i class="ft-check-square mr-1"></i>
+                Save
+              </button>
+              <button type="button" *ngIf="CustomeId" class="btn btn-primary mr-2 mt-2" (click)="onUpdate(orderForm)">
+                Update
+              </button>
+              <button type="button" class="btn btn-secondary mt-2" (click)="goBack()">
+                <i class="ft-x mr-1"></i>Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

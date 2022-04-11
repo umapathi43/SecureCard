@@ -1,0 +1,84 @@
+<div class="col-lg-12 col-12">
+  <ngx-spinner></ngx-spinner>
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" *ngIf="!CustomeId">Add Stock</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Stock</h4>
+    </div>
+    <div class="card-content">
+      <div class="card-body" id="frmcbdy">
+        <form
+          #userForm="ngForm"
+          (ngSubmit)="userForm.form.valid && onSubmit(userForm)"
+        >
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Name</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control"
+                  name="sname"
+                  [(ngModel)]="model.stockName"
+                  #sname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && sname.invalid,
+                    'is-valid': userForm.submitted && !sname.invalid
+                  }"
+                  required
+                />
+                <div
+                  *ngIf="
+                    userForm.submitted &&
+                    (sname.invalid || sname.errors?.required)
+                  "
+                  class="invalid-tooltip"
+                >
+                  Please provide a valids Name.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Branch Name </label>
+                <select
+                  id="basic-form-6"
+                  name="barnchCreation"
+                  [(ngModel)]="model.barnchCreation.id"
+                  #barnchCreation="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && barnchCreation.invalid
+                  }"
+                  class="form-control"
+                >
+                  <option value="none" selected disabled>Branch</option>
+                  <option *ngFor="let item of branchList" value="{{ item.id }}">
+                    {{ item.branchName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button type="submit" *ngIf="!CustomeId" class="btn btn-primary mr-2">
+            <i class="ft-check-square mr-1"></i>
+            Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(userForm)"
+          >
+            <i class="ft-check-square mr-1"></i>
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

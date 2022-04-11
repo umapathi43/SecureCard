@@ -1,0 +1,228 @@
+<ngx-spinner></ngx-spinner>
+<section id="tooltip-validation">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            G.S.T Input Registration
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="needs-validation mt-2" #orderForm="ngForm"
+                            (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)">
+                            <div class="form-row mb-3">
+                                <div class="col-md-3 offset-md-2">
+                                    <label for="validationTooltip01">Start Date</label>
+                                    <input type="date" name="satrtdate" class="form-control" id="validationTooltip01"
+                                        [(ngModel)]="model.startDate" #startdate="ngModel" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="validationTooltip01">End Date</label>
+                                    <input type="date" name="ndedate" class="form-control" id="validationTooltip01"
+                                        [(ngModel)]="model.endDate" #enddate="ngModel" />
+                                </div>
+                            </div>   
+                            <div class="form-row">
+                                <div class="col-md-6 mb-1 offset-md-2 form-group">
+                                    <label for="validationTooltip01">Select Supplier</label>
+                                    <select name="supplier" class="form-control" id="validationTooltip01"
+                                        [(ngModel)]="model.supplierNo" #supplier="ngModel" required
+                                        (ngModelChange)="validateItemName(content2,model.supplierNo)">
+                                        <option *ngFor="let data of itemArrayValue" value="{{data.value}}">
+                                            {{data.value}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-1 offset-md-2 form-group">
+                                    <label for="validationTooltip01">Select Item</label>
+                                    <select class="form-control" id="validationTooltip01" [(ngModel)]="model.itemName"
+                                        name="packn" #packn="ngModel" placeholder="Item selected"
+                                        (ngModelChange)="validateItemName(content, model.itemName)">
+                                        <option *ngFor="let data of itemArrayValue" value="{{data.value}}">
+                                            {{data.value}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 offset-md-3">
+                                    <button type="submit" *ngIf="!CustomeId" class="btn btn-primary mr-2 mt-2">
+                                        <i class="ft-check-square mr-1"></i>
+                                        Get Reports
+                                    </button>
+
+                                    <button type="button" class="btn btn-secondary mt-2" (click)="goBack()">
+                                        <i class="ft-x mr-1"></i>Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <<<<<<<<<<<<<<<Item model>>>>>>>>>>>>>>>>>>>>>> -->
+<ng-template #content let-modal>
+    <ngx-spinner></ngx-spinner>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Item Details</h4>
+        <button type="button" id="cancelModalbtn" hidden class="btn-close" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <section id="ngx-datatable-filter">
+            <div class="row">
+                <div class="col-12">
+                    <!-- ngx-datatable-filter -->
+                    <fieldset class="form-group">
+                        <label for="ngx-filter-ref">Search:
+                            <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200"
+                                type="text" placeholder="Filter the Name column..."
+                                (keyup)="filterUpdateItem($event)" />
+                        </label>
+                    </fieldset>
+
+                    <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
+                        [footerHeight]="50" rowHeight="auto" [limit]="10" [rows]="itemArray"
+                        [selectionType]="SelectionType.checkbox" (select)="customChkboxOnSelect($event)"
+                        [scrollbarH]="true">
+
+                        <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false"
+                            [draggable]="false" [resizeable]="false">
+                            <ng-template ngx-datatable-header-template let-value="value"
+                                let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" [checked]="allRowsSelected"
+                                        (change)="selectFn(!allRowsSelected)" />
+                                </div>
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+                                let-onCheckboxChangeFn="onCheckboxChangeFn">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" [checked]="isSelected"
+                                        (change)="onCheckboxChangeFn($event)" />
+                                </div>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Name" prop="itemName" [width]="200"></ngx-datatable-column>
+                        <ngx-datatable-column name="Max Amt" prop="max_amt"></ngx-datatable-column>
+                        <ngx-datatable-column name="Max Qty" prop="max_qty"></ngx-datatable-column>
+                        <ngx-datatable-column name="Min Amt" prop="min_amt"></ngx-datatable-column>
+                        <ngx-datatable-column name="Min Qty" prop="min_qty"></ngx-datatable-column>
+                        <ngx-datatable-column name="Pack" prop="packName"></ngx-datatable-column>
+                    </ngx-datatable>
+                    <!-- ngx-datatable-filter -->
+                </div>
+            </div>
+        </section>
+        <!-- <ng-multiselect-dropdown
+      [placeholder]="'Search for item..'"
+      [settings]="dropdownSettings"
+      [data]="itemArray"
+      (onSelect)="onItemSelect($event)"
+    >
+    </ng-multiselect-dropdown> -->
+    </div>
+    <div class="row mb-2 ml-1 mr-1">
+        <div class="col-md-12">
+            <span class="btn btn-primary btn-sm selected" *ngFor="let item of selectedItems">
+                {{item.itemName}}
+                <span class="close-selected" (click)="close(item,'item')">&nbsp;x</span>
+            </span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="onItemSelect()">
+            OK
+        </button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+            Close
+        </button>
+    </div>
+</ng-template>
+
+<!-- <<<<<<<<<<<<<<<supplier model>>>>>>>>>>>>>>>>>>>>>> -->
+<ng-template #content2 let-modal>
+    <ngx-spinner></ngx-spinner>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Supplier Details</h4>
+        <button type="button" id="cancelModalbtn" hidden class="btn-close" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <section id="ngx-datatable-filter">
+            <div class="row">
+                <div class="col-12">
+                    <!-- ngx-datatable-filter -->
+                    <fieldset class="form-group">
+                        <label for="ngx-filter-ref">Search:
+                            <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200"
+                                type="text" placeholder="Filter the Name column..."
+                                (keyup)="filterUpdateItem($event)" />
+                        </label>
+                    </fieldset>
+
+                    <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
+                        [footerHeight]="50" rowHeight="auto" [limit]="10" [rows]="supplierArray"
+                        [selectionType]="SelectionType.checkbox" (select)="customChkboxOnSelectsupplier($event)"
+                        [scrollbarH]="true">
+
+                        <ngx-datatable-column [width]="100" [sortable]="false" [canAutoResize]="false"
+                            [draggable]="false" [resizeable]="false">
+                            <ng-template ngx-datatable-header-template let-value="value"
+                                let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" [checked]="allRowsSelected"
+                                        (change)="selectFn(!allRowsSelected)" />
+                                </div>
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected"
+                                let-onCheckboxChangeFn="onCheckboxChangeFn">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" [checked]="isSelected"
+                                        (change)="onCheckboxChangeFn($event)" />
+                                </div>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="SupplierName" prop="supplierName">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Mobile" prop="mobileNo"></ngx-datatable-column>
+                        <ngx-datatable-column name="gstNo" prop="gstNo"></ngx-datatable-column>
+                        <ngx-datatable-column name="CreditLimit" prop="creditLimit"></ngx-datatable-column>
+                        <ngx-datatable-column name="OpeningBalance" prop="openingBal">
+                        </ngx-datatable-column>
+
+                    </ngx-datatable>
+                    <!-- ngx-datatable-filter -->
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="row mb-2 ml-1 mr-1">
+        <div class="col-md-12">
+            <span class="btn btn-primary btn-sm selected" *ngFor="let item of selectedSupplierName">
+                {{item.supplierName}}
+                <span class="close-selected" (click)="close(item,'supplier')">&nbsp;x</span>
+            </span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="onItemSelect()">
+            OK
+        </button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+            Close
+        </button>
+    </div>
+</ng-template>

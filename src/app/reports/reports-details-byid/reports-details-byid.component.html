@@ -1,0 +1,139 @@
+<section id="tooltip-validation">
+  <div class="row" id="frmcard">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header pb-3">
+          <h6 class="card-title">Ledger : ANKITA MEDICAL HALLhhhh</h6>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group" style="background: #faf5fa">
+              <div
+                class="row align-items-center"
+                style="font-size: 10px; height: 38px; display: flex"
+              >
+                <div class="col-md-12 col-lg-auto">
+                  <b class="mr-1 rb">Address</b
+                  ><span class="">
+                    : SAMBALPUR, Sambalpur, Tamil Nadu, India
+                  </span>
+                </div>
+                <div class="col-auto mx-lg-auto">
+                  <span class="mr-3"
+                    ><svg
+                      class="
+                        mat-datepicker-toggle-default-icon
+                        ng-star-inserted
+                      "
+                      fill="currentColor"
+                      focusable="false"
+                      height="18px"
+                      viewBox="0 0 24 24"
+                      width="18px"
+                    >
+                      <path
+                        d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+                      ></path></svg></span
+                  ><span class="date-value rb"
+                    ><span>01-04-2021</span><span class="px-3"> -To-</span
+                    ><span>31-03-2022</span></span
+                  >
+                </div>
+                <div class="col-sm-5 col-md-5">
+                  <button
+                    class="float-right ml-1 btn btn-primary"
+                    type="button"
+                    (click)="goBack()"
+                  >
+                    Back
+                  </button>
+                  <label for="ngx-filter-ref" class="float-right"
+                    >Search:
+                    <input
+                      id="ngx-filter-ref"
+                      class="
+                        form-control form-control-sm
+                        d-inline-block
+                        width-200
+                        ml-1
+                      "
+                      type="text"
+                      (keyup)="filterUpdate($event)"
+                    />
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+            <ngx-datatable
+              #tableRowDetails
+              style="height: 300px"
+              class="bootstrap core-bootstrap cursor-pointer"
+              [columnMode]="ColumnMode.force"
+              [rows]="rows"
+              [columns]="columns"
+              [columnMode]="ColumnMode.force"
+              [headerHeight]="20"
+              [rowHeight]="30"
+              [scrollbarH]="false"
+              [scrollbarV]="true"
+              [externalPaging]="false"
+            >
+              <ngx-datatable-column
+                name="Legder Name"
+                prop="legderName"
+                class="cursor-pointer"
+              >
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Station"
+                prop="station"
+                class="cursor-pointer"
+              >
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Balance"
+                prop="balance"
+                class="cursor-pointer"
+              ></ngx-datatable-column>
+
+              <ngx-datatable-column name="Actions" [width]="50">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <a [routerLink]="['/area/edit-area/', row.id]" class="mr-1"
+                    ><i class="ft-edit text-primary cursor-pointer"></i
+                  ></a>
+                  <a (click)="Confirm(row.id)"
+                    ><i class="ft-trash text-danger cursor-pointer"></i
+                  ></a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+
+            <fieldset class="form-group" style="background: #faf5fa">
+              <div
+                class="row align-items-center"
+                style="font-size: 10px; height: 38px; display: flex"
+              >
+                <div class="col-md-12 col-lg-auto">
+                  <b class="mr-1 rb">Address</b
+                  ><span class="">
+                    : SAMBALPUR, Sambalpur, Tamil Nadu, India
+                  </span>
+                </div>
+                <div class="col-auto mx-lg-auto">
+                  <label> Total Balance: </label>
+                </div>
+                <div class="col-sm-5 col-md-5">
+                  <label for="ngx-filter-ref mr-1" class="float-right"
+                    >Total Balance:
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+            <!-- ngx-datatable-filter -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

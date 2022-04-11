@@ -1,0 +1,39 @@
+@import "../../assets/sass/libs/datatables.scss";
+.card {
+  margin: 5px 0;
+}
+::ng-deep .datatable-body-row {
+  width: 0px !important;
+}
+::ng-deep .ng-clear-wrapper .ng-clear {
+  display: none !important;
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.customizer11 {
+  width: 650px !important;
+  overflow-y: auto !important;
+  max-height: 500px;
+}
+.datatable-header-cell-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+.core-bootstrap .form-control {
+  border: 0;
+}
+
+.core-bootstrap .form-control:focus {
+  border-bottom: 1px solid #975aff;
+  border-radius: 0;
+}
+::ng-deep .ngx-datatable .datatable-body-cell,
+.ngx-datatable .datatable-header-cell {
+  font-size: 10px !important;
+}
+
+.dropdown-list{
+  position: relative !important;
+}

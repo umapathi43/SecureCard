@@ -1,0 +1,77 @@
+<section id="ngx-datatable-filter">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <h4>Bulk Hsnsac Creation</h4>
+                    </div>
+                    <form #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit(userForm)">
+                        <div class="card-body">
+                            <!-- ngx-datatable-filter -->
+                            <fieldset class="form-group">
+                                <label for="ngx-filter-ref">Search:
+                                    <input id="ngx-filter-ref"
+                                        class="form-control form-control-sm d-inline-block width-200" type="text"
+                                        placeholder="Filter the Name column..." />
+                                </label>
+                            </fieldset>
+                            <ngx-datatable class="bootstrap core-bootstrap opening-stock" style="height: 400px"
+                                [columns]="columns2" [columnMode]="ColumnMode.force" [headerHeight]="50"
+                                [rowHeight]="50" [rows]="Items" [externalPaging]="false" [scrollbarH]="true"
+                                [scrollbarV]="true">
+                                <ngx-datatable-column name="Name" prop="hsnName" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="text" id="hidden-label-form-1" class="form-control"
+                                            name="hsnName{{ rowIndex }}" [(ngModel)]="item.hsnName"
+                                            #hsnName="ngModel" [ngClass]="{
+                                                'is-invalid': userForm.submitted && hsnName.invalid,
+                                                'is-valid': userForm.submitted && !hsnName.invalid
+                                                }" required />
+                                        <div *ngIf="
+                                            userForm.submitted &&
+                                            (hsnName.invalid || hsnName.errors?.required)
+                                            " class="invalid-tooltip">
+                                            Please provide a valid Name.
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Descirption" prop="descirption" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="text" id="hidden-label-form-1" class="form-control"
+                                            name="descirption{{ rowIndex }}" [(ngModel)]="item.descirption"
+                                            #descirption="ngModel" (keydown.Tab)="addItem()" />
+                                       
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Actions">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                        [width]="100">
+                                        <a *ngIf="rowIndex != Items.length - 1 || Items.length > 1"
+                                            (click)="removeItem(rowIndex)"><i
+                                                class="ft-trash text-danger cursor-pointer"></i></a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                            <button type="button" class="btn btn-primary btn-sm" (click)="addItem()">
+                                Add Item
+                            </button>
+                        </div>
+                        <!-- ngx-datatable-filter -->
+                        <button type="submit" class="btn btn-primary mr-2 ml-2 mb-2">
+                            <i class="ft-check-square mr-1"></i>
+                            Save
+                        </button>
+
+                        <button type="button" class="btn btn-secondary ml-2 mb-2" (click)="goBack()">
+                            <i class="ft-x mr-1"></i>Cancel
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

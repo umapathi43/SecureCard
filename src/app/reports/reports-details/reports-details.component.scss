@@ -1,0 +1,36 @@
+@import "../../../assets/sass/libs/datatables.scss";
+
+.ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover,
+.ngx-datatable.material:not(.cell-selection)
+  .datatable-body-row:hover
+  .datatable-row-group {
+  background: #f7f7f8;
+}
+
+fieldset.scheduler-border {
+  border: 1px groove #ddd !important;
+  // padding: 0 1.4em 1.4em 1.4em !important;
+  // margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow: 0px 0px 0px 0px #000;
+  box-shadow: 0px 0px 0px 0px #000;
+}
+legend.scheduler-border {
+  width: inherit;
+  padding: 0 10px;
+  border-bottom: none;
+  font-weight: bold;
+}
+legend {
+  font-size: 1rem !important;
+  margin-bottom: 0 !important;
+}
+.text-nowrap {
+  font-size: 0.75rem;
+}
+.datatable-header-inner {
+  height: 35px;
+  font-weight: bold;
+}
+.datatable-body {
+  overflow-x: hidden;
+}

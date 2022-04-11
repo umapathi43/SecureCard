@@ -1,0 +1,120 @@
+<div class="modal-header" *ngIf="isModal">
+  <h4 class="modal-title">Add Discount Slab</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    x
+  </button>
+</div>
+<!-- <div class="col-lg-12 col-md-12"> -->
+  <ngx-spinner></ngx-spinner>
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" *ngIf="!CustomeId">Add Discount Slab</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Discount Slab</h4>
+    </div>
+    <div class="card-content" id="frmcard">
+      <div class="card-body">
+        <form
+          #userForm="ngForm"
+          (ngSubmit)="userForm.form.valid && onSubmit(userForm)"
+        >
+          <div class="row">
+            <div class="form-group" [ngClass]="grid()">
+              <label for="hidden-label-form-1"> Name</label>
+              <input
+                type="text"
+                id="hidden-label-form-1"
+                class="form-control"
+                name="aname"
+                [(ngModel)]="model.discountSlabName"
+                #dname="ngModel"
+                [ngClass]="{
+                  'is-invalid': userForm.submitted && dname.invalid,
+                  'is-valid': userForm.submitted && !dname.invalid
+                }"
+                required
+              />
+              <div
+                *ngIf="
+                  userForm.submitted &&
+                  (dname.invalid || dname.errors?.required)
+                "
+                class="invalid-tooltip"
+              >
+                Please provide a valids Name.
+              </div>
+            </div>
+            <div class="form-group" [ngClass]="grid()">
+              <label for="hidden-label-form-1"> Enter From Amount </label>
+              <input
+                type="text"
+                id="hidden-label-form-1"
+                class="form-control"
+                name="from_amt"
+                [(ngModel)]="model.from_amt"
+                #from_amt="ngModel"
+                [ngClass]="{
+                  'is-invalid': userForm.submitted && from_amt.invalid
+                }"
+              />
+            </div>
+            <div class="form-group" [ngClass]="grid()">
+              <label for="hidden-label-form-1"> Discount %</label>
+              <input
+                type="number"
+                id="hidden-label-form-1"
+                class="form-control"
+                name="discount"
+                [(ngModel)]="model.discount"
+                #discount="ngModel"
+                [ngClass]="{
+                  'is-invalid': userForm.submitted && discount.invalid
+                }"
+              />
+            </div>
+            <div class="form-group" [ngClass]="grid()">
+              <label for="hidden-label-form-1"> Enter To Amount </label>
+              <input
+                type="text"
+                id="hidden-label-form-1"
+                class="form-control"
+                name="to_amt"
+                [(ngModel)]="model.to_amt"
+                #to_amt="ngModel"
+                [ngClass]="{
+                  'is-invalid': userForm.submitted && to_amt.invalid
+                }"
+              />
+            </div>
+          </div>
+          <div class="row ml-2">
+            <button
+              type="submit"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+            >
+              <i class="ft-check-square mr-1"></i>
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              <i class="ft-check-square mr-1"></i>
+              Update
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->

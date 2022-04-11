@@ -1,0 +1,19 @@
+@import "../../assets/sass/libs/datatables.scss";
+
+.datatable-header-cell-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+.core-bootstrap .form-control {
+  border: 0;
+}
+
+.core-bootstrap .form-control:focus {
+  border-bottom: 1px solid #975aff;
+  border-radius: 0;
+}
+
+::ng-deep .opening-stock .datatable-body-cell,
+.opening-stock .datatable-header-cell {
+  font-size: 10px !important;
+}

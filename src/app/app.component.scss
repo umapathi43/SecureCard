@@ -1,0 +1,34 @@
+.rightServices,
+.shortcutKey {
+  position: fixed;
+  right: 0;
+  top: 53px;
+  height: calc(100% - 46px);
+  border-radius: 5px 0 0 0;
+  box-shadow: -2px 0 3px;
+  z-index: 0;
+  overflow: hidden;
+}
+.rightServices.dash-shortcut {
+  font-size: 1rem;
+}
+.rightServices {
+  @media screen and (max-width: 1366px) {
+    width: 161px;
+  }
+
+  @media screen and (max-width: 1400px) {
+    width: 195px;
+  }
+  @media screen and (max-width: 1440px) {
+    width: 235px;
+  }
+  @media screen and (max-width: 1920px) {
+    width: 320px;
+  }
+}
+.rightServices {
+  width: 150px;
+  z-index: 1;
+  overflow: auto;
+}

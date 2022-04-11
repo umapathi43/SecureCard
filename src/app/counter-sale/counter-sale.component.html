@@ -1,0 +1,144 @@
+<ngx-spinner></ngx-spinner>
+<section id="tooltip-validation">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form class="needs-validation" #orderForm="ngForm" (ngSubmit)="(orderForm.form.valid)">
+              <div class="form-row">
+                <div class="col-md-3 mb-1 form-group">
+                  <label for="validationTooltip01">Entry Date</label>
+                  <input type="text" name="fname" placeholder="dd-mm-yyyy" class="form-control" id="validationTooltip01"
+                    [(ngModel)]="entryDatemodel" #fname="ngModel" type="date" [ngClass]="{
+                      'is-invalid': orderForm.submitted && fname.invalid,
+                      'is-valid': orderForm.submitted && !fname.invalid
+                    }" required />
+                  <!-- <div class="input-group-append">
+                    <div class="input-group-text" (click)="m.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                    </div>
+                  </div> -->
+                  <div *ngIf="orderForm.submitted && !fname.errors?.required" class="valid-tooltip">
+                    Looks good!
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group">
+              <label for="ngx-filter-ref">Search:
+                <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200" type="text"
+                  placeholder="Filter the Name column..." />
+              </label>
+            </fieldset>
+            <ngx-datatable class="bootstrap core-bootstrap" style="height: 400px" [columns]="columns2"
+              [columnMode]="ColumnMode.force" [headerHeight]="50" [rowHeight]="50" [rows]="Items"
+              [externalPaging]="false" [scrollbarH]="true" [scrollbarV]="true">
+              <ngx-datatable-column name="Item Name" prop="itemName" [width]="90">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="text" class="form-control" [(ngModel)]="item.itemName" name="name{{ rowIndex }}"
+                    placeholder="Name" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name=" Batch" prop="batch" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control qtyWidth" [(ngModel)]="item.batch" name="batch{{ rowIndex }}"
+                    placeholder="Batch" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Pack Qty" prop="packQty" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.packQty" name="packQty{{ rowIndex }}"
+                    placeholder="Pack Qty" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="LooseQty" prop="looseQty" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.looseQty" name="looseQty{{ rowIndex }}"
+                    placeholder="Loos Qty" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="TotalQty" prop="totalQty" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.totalQty" name="totalQty{{ rowIndex }}"
+                    placeholder="Total Qty" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Rate" prop="rate" [width]="70">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.rate" name="rate{{ rowIndex }}"
+                    placeholder="Rate" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Amount" prop="amount" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.amount" name="amount{{ rowIndex }}"
+                    placeholder="Amount " (keydown.Tab)="addItem();totalValue();" (change)="totalValue() " />
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Actions">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <a *ngIf="rowIndex != Items.length - 1 || Items.length > 1" (click)="removeItem(rowIndex)"><i
+                      class="ft-trash text-danger cursor-pointer"></i></a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <button type="button" class="btn btn-primary btn-sm" (click)="addItem()">
+              Add Item
+            </button>
+            <!-- ngx-datatable-filter -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="basic-form-layouts">
+  <div class="row match-height">
+    <!-- Basic Form ends -->
+    <!-- Hidden Label starts -->
+    <div class="col-lg-12 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3">
+                <label class="mr-2">Total Items:</label>{{ model.totalItems }}
+              </div>
+              <div class="col-md-3">
+                <label class="mr-2">Total value:</label>{{ model.totalVal }}
+              </div>
+            </div>
+            <div class="mt-2">
+              <button type="button" class="btn btn-primary mr-2" (click)="onSubmit()" *ngIf="!CustomeId">
+                <i class="ft-check-square mr-1"></i>Save
+              </button>
+              <button type="button" class="btn btn-primary mr-2" (click)="updatecounter()" *ngIf="CustomeId">
+                <i class="ft-check-square mr-1"></i>Update
+              </button>
+              <button type="button" class="btn btn-secondary MT-2" (click)="goBack()">
+                <i class="ft-x mr-1"></i>Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Hidden Label ends -->
+  </div>
+</section>
