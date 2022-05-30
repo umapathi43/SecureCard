@@ -1,0 +1,616 @@
+<ngx-spinner></ngx-spinner>
+<section id="tooltip-validation">
+  <div class="row" id="frmcard">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form class="needs-validation" #userForm="ngForm" (keyup.enter)="keytab($event)">
+              <div class="form-row">
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip01">Supplier Name</label>
+                  <ng-select [items]="supplierdata" bindLabel="supplierName" class="selectWidth" bindValue="id"
+                    [(ngModel)]="model.sname" name="fname" #fname="ngModel" placeholder="Select Suppliers"
+                    (search)="OnSupplierChange($event)" (keyup.enter)="addsupplierPop(model.sname)"
+                    (ngModelChange)="supplierAddress(model.sname)" (keyup.enter)="keytab($event)">
+                  </ng-select>
+                  <div *ngIf="userForm.submitted && !fname.errors?.required" class="valid-tooltip">
+                    Looks good!fname
+                  </div>
+                </div>
+                <div class="col-md-1 mb-1 form-group">
+                  <label for="validationTooltip03">Invoice No</label>
+                  <input type="text" name="invoiceNo" class="form-control" [(ngModel)]="model.invoiceNo"
+                    #invoiceNo="ngModel" [ngClass]="{
+                      'is-invalid': userForm.submitted && invoiceNo.invalid,
+                      'is-valid': userForm.submitted && !invoiceNo.invalid
+                    }" required (keyup.enter)="keytab($event)" />
+                  <div *ngIf="
+                      userForm.submitted &&
+                      (invoiceNo.invalid || invoiceNo.errors?.required)
+                    " class="invalid-tooltip">
+                    Please provide a valid Invoice NO.
+                  </div>
+                </div>
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip03">Invoice Date</label>
+                  <div class="input-group">
+                    <input class="form-control date-font" placeholder="dd-mm-yyyy" name="indate" #indate="ngModel"
+                      [(ngModel)]="inVoiceDate" type="date" required (keyup.enter)="keytab($event)" />
+                    <!-- <div class="input-group-append">
+                      <div class="input-group-text" (click)="d2.toggle()">
+                        <i class="fa fa-calendar" style="cursor: pointer"></i>
+                      </div>
+                    </div> -->
+                  </div>
+                  <div *ngIf="
+                      userForm.submitted &&
+                      (indate.invalid || indate.errors?.required)
+                    " class="invalid-tooltip">
+                    Please provide a valid Invoice Date.
+                  </div>
+                </div>
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip03">Entry Date</label>
+                  <div class="input-group">
+                    <input class="form-control date-font" placeholder="dd-mm-yyyy" name="entrydate" #entrydate="ngModel"
+                      type="date" [(ngModel)]="entrydateInvoice" required (keyup.enter)="keytab($event)" />
+                  </div>
+
+                  <!-- <input
+                    type="text"
+                    name="entrydate"
+                    class="form-control "
+                    [(ngModel)]="invoice.entrydate"
+                    #entrydate="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && entrydate.invalid,
+                      'is-valid': userForm.submitted && !entrydate.invalid
+                    }"
+                    required
+                  /> -->
+                  <div *ngIf="
+                      userForm.submitted &&
+                      (entrydate.invalid || entrydate.errors?.required)
+                    " class="invalid-tooltip">
+                    Please provide a valid Entry Date.
+                  </div>
+                </div>
+                <div class="col-md-1 mb-1 form-group">
+                  <label for="validationTooltip03">Disc %</label>
+                  <input type="text" name="discount" class="form-control" [(ngModel)]="model.discount"
+                    #discount="ngModel" [ngClass]="{
+                      'is-invalid': userForm.submitted && discount.invalid,
+                      'is-valid': userForm.submitted && !discount.invalid
+                    }" required (keyup.enter)="keytab($event)" />
+                  <div *ngIf="
+                      userForm.submitted &&
+                      (discount.invalid || discount.errors?.required)
+                    " class="invalid-tooltip">
+                    Please provide a valid Discount.
+                  </div>
+                </div>
+                <div class="col-md-1 mb-1 form-group">
+                  <label for="validationTooltip03">Due Days</label>
+                  <input type="text" name="dueday" class="form-control" [(ngModel)]="model.dueday" #dueday="ngModel"
+                    (change)="duedateChange(model.dueday)" [ngClass]="{
+                      'is-invalid': userForm.submitted && dueday.invalid,
+                      'is-valid': userForm.submitted && !dueday.invalid
+                    }" required (keyup.enter)="keytab($event)" />
+                  <div *ngIf="
+                      userForm.submitted &&
+                      (dueday.invalid || dueday.errors?.required)
+                    " class="invalid-tooltip">
+                    Please provide a valid due day.
+                  </div>
+                </div>
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip03">Due Date</label>
+                  <div class="input-group">
+                    <input class="form-control date-font" placeholder="dd/mm/yyyy" name="duedate" #duedate="ngModel"
+                      [(ngModel)]="duedateInvoice" type="date" required (keyup.enter)="keytab($event)" />
+                  </div>
+                  <!-- <input
+                    type="text"
+                    name="duedate"
+                    class="form-control "
+                    [(ngModel)]="invoice.duedate"
+                    #duedate="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && duedate.invalid,
+                      'is-valid': userForm.submitted && !duedate.invalid
+                    }"
+                    required
+                  /> -->
+                  <div *ngIf="
+                      userForm.submitted &&
+                      (duedate.invalid || duedate.errors?.required)
+                    " class="invalid-tooltip">
+                    Please provide a valid due date.
+                  </div>
+                </div>
+                <div class="col-md-1 mb-1 form-group">
+                  <label for="validationTooltip03">SRT Margin%</label>
+                  <input type="number" name="srtMargin" class="form-control" [(ngModel)]="model.srtMargin"
+                    #srtMargin="ngModel" [ngClass]="{
+                      'is-invalid': userForm.submitted && srtMargin.invalid,
+                      'is-valid': userForm.submitted && !srtMargin.invalid
+                    }" (change)="srtMarginValue(model.srtMargin)" required (keyup.enter)="keytab($event)" />
+                  <div *ngIf="
+                      userForm.submitted &&
+                      (srtMargin.invalid || srtMargin.errors?.required)
+                    " class="invalid-tooltip">
+                    Please provide a valid SRT Margin.
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="p-2">
+                  <!-- <button class="btn btn-primary" type="button">
+                    <input type="file" (change)="onChange($event)" #inputFile />
+                    Import from CSV
+                  </button> -->
+                  <button class="btn btn-primary" type="button" (click)="fileInput.click()">
+                    Import from CSV
+                    <input #fileInput type="file" (change)="onChange($event)" style="display: none" />
+                  </button>
+                </div>
+                <div class="p-2">
+                  <button class="btn btn-primary" type="button">
+                    <i class="icon-reload mr-1"></i>Load PO
+                  </button>
+                </div>
+                <div class="p-2">
+                  <!-- <button class="btn btn-primary" type="button" (click)="openXl('content')">
+                    <i class="icon-reload mr-1"></i>Invoice Print
+                  </button> -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form class="needs-validation mt-2" #orderForm="ngForm">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group">
+              <label for="ngx-filter-ref">Search:
+                <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200" type="text"
+                  placeholder="Filter the Name column..." (keyup)="filterUpdate($event)" />
+              </label>
+            </fieldset>
+            <ngx-datatable class="bootstrap core-bootstrap" style="height: 400px" [columns]="columns2"
+              [columnMode]="ColumnMode.force" [headerHeight]="50" [rowHeight]="35" [rows]="Items"
+              [externalPaging]="false" [scrollbarH]="true" [scrollbarV]="true">
+              <ngx-datatable-column name="Name" prop="name">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input class="form-control" [(ngModel)]="item.name" name="itemName{{ rowIndex }} " #itemName="ngModel"
+                    placeholder="No Item selected" style="width: 119px" type="text" readonly
+                    (click)="open(content, rowIndex)" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Batch" prop="batch" [width]="90">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="text" autofocus class="form-control" [(ngModel)]="item.batch" name="batch{{ rowIndex }}"
+                    placeholder="Branch" (keydown.Tab)="defaultChange('Batch')" (keyup.enter)="keytab($event)" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Expiry Date" prop="expiryDate" [width]="110">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input autofocus [(ngModel)]="item.expiryDate" class="form-control" name="expiryDate{{ rowIndex }}"
+                    placeholder="MM/YY" required (keydown.Tab)="defaultChange('Expiry Date')"
+                    (change)="mgdChange(item.expiryDate, rowIndex)" (keyup.enter)="keytab($event)"
+                    (keyup)="onExpiryFormate($event);" (focusout)="datevalidation($event)" />
+                  <!-- <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.expiryDate"
+                    name="expiryDate{{ rowIndex }}"
+                    placeholder="Expiry Date"
+                  /> -->
+                  <div *ngIf="expiryDateFlag" style="color: #fff;background-color: rgba(245, 82, 82, 0.9);">
+                    Please provide a valid Month.
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Mfg Date" prop="mfgDate" [width]="180">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input class="form-control" placeholder="dd-mm-yyyy" name="mfgDate{{ rowIndex }}"
+                    [(ngModel)]="item.mfgDatePicker" type="date" required [footerTemplate]="footerTemplate"
+                    (keydown.Tab)="defaultChange('MFG Date')" (ngModelChange)="mfgDateChange(item, rowIndex)"
+                    [disabled]="item.mfgdateFlag === true" />
+                  <!-- <div class="input-group-append">
+                    <div class="input-group-text" (click)="m.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                    </div>
+                  </div> -->
+                  <!-- <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.mfgDate"
+                    name="mfgDate{{ rowIndex }}"
+                    placeholder="Mfg Date"
+                  /> -->
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Best Before" prop="bestBefore" [width]="110">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <select id="basic-form-6" [(ngModel)]="item.bestBefore" name="bestBefore{{ rowIndex }}" required
+                    class="form-control" [disabled]="item.mfgdateFlag === true" (change)="mfgDateChange(item, rowIndex)"
+                    (keydown.Tab)="defaultChange('Best Before')">
+                    <option value="{{ best.bestBefore }}" *ngFor="let best of beforeDetails">
+                      {{ best.bestBefore }}
+                    </option>
+                  </select>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Qty" prop="qty" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.qty" name="qty{{ rowIndex }}"
+                    placeholder="00.00" (keydown.Tab)="defaultChange('Quantty')" (change)="
+                      limitDecimalPlaces($event, 2);
+                      discountAmountChange(item, rowIndex, 'qyt');
+                      grossAmount(item, rowIndex);
+                      taxAmount(item, rowIndex)
+                    " />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Free Qty" prop="freeQty" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.freeQty" name="freeQty{{ rowIndex }}"
+                    placeholder="Free Qty" (keydown.Tab)="defaultChange('free Qty')"
+                    (change)="limitDecimalPlaces($event, 2)" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="MRP" prop="mrp" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.mrp" name="mrp{{ rowIndex }}"
+                    placeholder="MRP" (keydown.Tab)="defaultChange('MRP')" (change)="limitDecimalPlaces($event, 2)" />
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Purchase Rate" prop="purchaseRate" [width]="110">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.purchaseRate"
+                    name="purchaseRate{{ rowIndex }}" placeholder="Purchase Rate"
+                    (keydown.Tab)="defaultChange('Purchase Rate')" (change)="
+                      discountAmountChange(item, rowIndex, 'rate');
+                      taxAmount(item, rowIndex);
+                      srtAmount(item, rowIndex);
+                      grossAmount(item, rowIndex);
+                      netAmountChange(item, rowIndex)
+                    " />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Disc %" prop="discount" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.discount" name="discount{{ rowIndex }}"
+                    placeholder="Discount%" (keydown.Tab)="defaultChange('Discount')" (change)="
+                      discountAmountChange(item, rowIndex, 'dis');
+                      taxAmount(item, rowIndex);
+                      netAmountChange(item, rowIndex)
+                    " />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Disc Amt" prop="discAmount" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.discAmount"
+                    name="discAmount{{ rowIndex }}" placeholder="Disc Amount"
+                    (keydown.Tab)="defaultChange('Discount Amount')" (change)="
+                      netAmountChange(item, rowIndex);
+                      discountAmountChange(item, rowIndex, 'amt');
+                      taxAmount(item, rowIndex)
+                    " />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Sch Disc Amount" prop="schdiscAmount" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.schdiscAmount"
+                    name="schdiscAmount{{ rowIndex }}" placeholder="Sch Disc Amount"
+                    (keydown.Tab)="defaultChange('Schedule Discount Amount')" (change)="
+                      limitDecimalPlaces($event, 2);
+                      netAmountChange(item, rowIndex)
+                    " />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="GST" prop="gst" [width]="85">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <select class="form-control" #MyNgSelect style="width: 70px" [(ngModel)]="item.gst"
+                    name="gst{{ rowIndex }}" (keydown.Tab)="defaultChange('GST')" (change)="
+                      taxAmount(item, rowIndex); netAmountChange(item, rowIndex)
+                    ">
+                    <option [value]="item.gstTypeName" *ngFor="let item of gstTypeList">
+                      {{ item.gstTypeName }}
+                    </option>
+                  </select>
+                  <!-- <ng-select
+                    #MyNgSelect
+                    bindLabel="gstTypeName"
+                    appendTo="body"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [closeOnSelect]="false"
+                    style="width: 70px"
+                    [(ngModel)]="item.gst"
+                    name="gst{{ rowIndex }}"
+                    (keydown.Tab)="defaultChange('GST')"
+                    (change)="
+                      taxAmount(item, rowIndex); netAmountChange(item, rowIndex)
+                    "
+                  >
+                    <ng-option
+                      [value]="item.gstTypeName"
+                      *ngFor="let item of gstTypeList"
+                    >
+                      {{ item.gstTypeName }}
+                    </ng-option>
+                  </ng-select> -->
+                  <!-- <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.gst"
+                    name="gst{{ rowIndex }}"
+                    placeholder="GST"
+                  /> -->
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Tax Amount" prop="taxAmount" [width]="110">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="number" class="form-control" [(ngModel)]="item.taxAmount" name="taxAmount{{ rowIndex }}"
+                    placeholder="Tax Amount" (change)="netAmountChange(item, rowIndex)"
+                    (keydown.Tab)="defaultChange('Tax Amount')" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="QPK" prop="qpk" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="text" class="form-control" [(ngModel)]="item.qpk" name="qpk{{ rowIndex }}"
+                    placeholder="QPK" (keydown.Tab)="defaultChange('quantity per Pack')" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="SRT" prop="srt" [width]="80">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="text" class="form-control" [(ngModel)]="item.srt" name="srt{{ rowIndex }}"
+                    placeholder="SRT" (keydown.Tab)="defaultChange('SRT')" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Gross Amt" prop="grossAmt" [width]="110">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="text" class="form-control" [(ngModel)]="item.grossAmt" name="grossAmt{{ rowIndex }}"
+                    placeholder="Gross Amt" (keydown.Tab)="defaultChange('Gross Amount')"
+                    (ngModelChange)="netAmountChange(item, rowIndex)" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Net Amt" prop="netAmt" [width]="110">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <input type="text" class="form-control" [(ngModel)]="item.netAmt"
+                    (keydown.Tab)="defaultChange('Net Amount')" name="netAmt{{ rowIndex }}" placeholder="Net Amt"
+                    (focusout)="totalGross()" />
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Actions">
+                <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                  <a *ngIf="rowIndex != Items.length - 1 || Items.length > 1" (click)="removeItem(rowIndex)"><i
+                      class="ft-trash text-danger cursor-pointer"></i></a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <button type="button" class="btn btn-primary btn-sm" (click)="addItem()">
+              <i class="icon-plus mr-1"></i>
+              Add Item
+            </button>
+            <!-- ngx-datatable-filter -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="basic-form-layouts">
+  <div class="row match-height">
+    <!-- Basic Form starts -->
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <ngx-datatable #tableRowDetails class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force"
+              [footerHeight]="50" rowHeight="auto" [limit]="10" [rows]="rows" [columns]="columns">
+              <ngx-datatable-row-detail rowHeight="auto">
+                <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                  <div class="ml-5 my-1">
+                    <div><strong>Qty : </strong> {{ row.qty }}</div>
+                    <div><strong>schemeQty : </strong> {{ row.schemeQty }}</div>
+                    <div><strong>discount :</strong> {{ row.discount }}</div>
+                    <div><strong>billDate :</strong> {{ row.billDate }}</div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-row-detail>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false"
+                [width]="50">
+                <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                  <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded"
+                    [class.datatable-icon-down]="expanded" title="Expand/Collapse Row"
+                    (click)="rowDetailsToggleExpand(row)">
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="itemName" prop="itemName" [width]="150">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="supplierName" prop="supplierName" [width]="150"></ngx-datatable-column>
+              <ngx-datatable-column name="purchaseRate" prop="purchaseRate" [width]="120"></ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Basic Form ends -->
+    <!-- Hidden Label starts -->
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form>
+              <div class="form-row">
+                <div class="col-md-4 form-group">
+                  <label for="form-1">Gross Amount</label>
+                  <input (click)="totalGross()" type="number" disabled id="form-1" class="form-control"
+                    name="grossAmounts" #grossAmounts="ngModel" [(ngModel)]="model.grossAmounts" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-2">Disc Amount</label>
+                  <input type="number" id="form-2" class="form-control" name="discAmount" #discAmount="ngModel"
+                    [(ngModel)]="model.discAmount" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-3">No Of Items</label>
+                  <input type="number" id="form-3" class="form-control" name="noItems" #noItems="ngModel" disabled
+                    [(ngModel)]="model.noItems" />
+                </div>
+                <div class="col-md-4 form-group position-relative">
+                  <label for="form-4">Discount%</label>
+                  <input type="number" id="form-9" class="form-control" name="dicper" #dicper="ngModel"
+                    [(ngModel)]="model.disPercentage" />
+                  <!-- <div class="input-group-append">
+                    <div class="input-group-text" (click)="f.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                    </div>
+                  </div> -->
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-5">GST Amount</label>
+                  <input type="number" id="form-5" class="form-control" disabled name="gstamount" #gstamount="ngModel"
+                    [(ngModel)]="model.gstamount" />
+                </div>
+
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Round Off Amount</label>
+                  <input type="number" id="form-7" class="form-control" name="Amount" #Amount="ngModel"
+                    [(ngModel)]="model.Amount" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Other Expenses</label>
+                  <input type="number" id="form-7" class="form-control" name="otherExp" #otherExp="ngModel"
+                    [(ngModel)]="model.otherExp" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Net Amount</label>
+                  <input type="number" id="form-8" class="form-control" name="netAmount" #netAmount="ngModel" disabled
+                    [(ngModel)]="model.netAmount" />
+                </div>
+              </div>
+            </form>
+            <button type="button" class="btn btn-primary mr-2" (click)="onSubmit()" *ngIf="!CustomeId">
+              <i class="ft-check-square mr-1"></i>Save
+            </button>
+            <button type="button" class="btn btn-primary mr-2" (click)="onUpdate()" *ngIf="CustomeId">
+              <i class="ft-check-square mr-1"></i>Update
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Hidden Label ends -->
+  </div>
+</section>
+<div class="" [ngClass]="{ 'show-overlay': !isNavbarSeachTextEmpty }" (click)="onWrapperClick()">
+  <div #customizer class="customizer d-none d-lg-none d-xl-block mt-5"
+    [ngClass]="{ open: isOpen, customizer11: popUpselect }">
+    <a class="customizer-close" (click)="closeCustomizer()">
+      <i class="ft-x font-medium-3"></i></a><a class="customizer-toggle bg-primary" id="customizer-toggle-icon"
+      (click)="toggleCustomizer()">
+      <i class="ft-settings font-medium-1 spinner white align-middle"></i>
+    </a>
+    <div class="customizer-content p-3 ps-container ps-theme-dark mb-3"
+      data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a">
+      <ng-container *ngIf="!popUpselect">
+        <h4 class="text-uppercase" style="color: #757575">Select Default</h4>
+        <hr />
+        <h6>
+          <span>Default: {{ itemNameSelect1 }} </span>
+        </h6>
+        <div>
+          <label for="validationTo">Select Priority </label>
+          <ng-select [items]="itemSelect" bindLabel="itemName" bindValue="itemName" [(ngModel)]="itemNameSelect"
+            name="itemNameSelec" #itemNameSelec="ngModel" placeholder="Select priority"
+            (search)="OnpriorityChange($event)">
+          </ng-select>
+        </div>
+        <button class="btn btn-primary mt-1" type="button" style="float: right" (click)="updatteSetting()">
+          Submit
+        </button>
+      </ng-container>
+      <ng-container *ngIf="popUpselect" class="mt-3">
+        <app-add-supplier [add_supplier]="model.sname" (backbutton)="backtoNormal($event)"></app-add-supplier>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Item Details</h4>
+    <button type="button" id="cancelModalbtn" hidden class="btn-close" aria-label="Close"
+      (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <section id="ngx-datatable-filter">
+      <div class="row">
+        <div class="col-12">
+                <!-- ngx-datatable-filter -->
+                <fieldset class="form-group">
+                  <label for="ngx-filter-ref">Search:
+                    <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200" type="text"
+                      placeholder="Filter the Name column..." (keyup)="filterUpdateItem($event)" />
+                  </label>
+                </fieldset>
+                <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force"
+                  [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="10" [rows]="itemArray">
+                  <ngx-datatable-column name="Name" prop="itemName" [width]="200">
+                    <ng-template let-row="row" let-name="value" ngx-datatable-cell-template >
+ <div (click)="onItemSelect(row)">{{row.itemName}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Max Amt" prop="max_amt" [width]="50"></ngx-datatable-column>
+                  <ngx-datatable-column name="Max Qty" prop="max_qty" [width]="50"></ngx-datatable-column>
+                  <ngx-datatable-column name="Min Amt" prop="min_amt" [width]="50"></ngx-datatable-column>
+                  <ngx-datatable-column name="Min Qty" prop="min_qty" [width]="50">
+
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Pack" prop="packName"  [width]="70">
+
+                  </ngx-datatable-column>
+                </ngx-datatable>
+                <!-- ngx-datatable-filter -->
+
+              </div>
+
+      </div>
+    </section>
+    <!-- <ng-multiselect-dropdown
+    [placeholder]="'Search for item..'"
+    [settings]="dropdownSettings"
+    [data]="itemArray"
+    (onSelect)="onItemSelect($event)"
+  >
+  </ng-multiselect-dropdown> -->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+      Close
+    </button>
+  </div>
+</ng-template>

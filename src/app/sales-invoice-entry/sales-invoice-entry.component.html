@@ -1,0 +1,633 @@
+<ngx-spinner></ngx-spinner>
+<section id="tooltip-validation">
+  <div class="row" id="frmcard">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form class="needs-validation" #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit(userForm)">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="card-body">
+                        <div class="form-row">
+                          <div class="col-md-12 mb-1 form-group">
+                            <label>Mobile No</label>
+                            <input id="tooltip-validation" type="text" name="mobileNo" class="form-control"
+                              [(ngModel)]="model.mobileNo" #mobileNo="ngModel" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && mobileNo.invalid,
+                                'is-valid':
+                                  userForm.submitted && !mobileNo.invalid
+                              }" required />
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (mobileNo.invalid || mobileNo.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a valid Mobile No.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Custmor Name</label>
+                            <ng-select class="select_width" [items]="customerNameArray" bindLabel="customerName"
+                              bindValue="customerName" name="custmorName" [(ngModel)]="model.customerName"
+                              #custmorName="ngModel" placeholder="Select Custmor" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && custmorName.invalid,
+                                'is-valid':
+                                  userForm.submitted && !custmorName.invalid
+                              }" required>
+                            </ng-select>
+
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (custmorName.invalid ||
+                                  custmorName.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a Custmor Name.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Address</label>
+                            <input type="text" name="custmorAddress" class="form-control"
+                              [(ngModel)]="model.customerAddress" #custmorAddress="ngModel" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && custmorAddress.invalid,
+                                'is-valid':
+                                  userForm.submitted && !custmorAddress.invalid
+                              }" required />
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (custmorAddress.invalid ||
+                                  custmorAddress.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a Custmor Name.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Doctor</label>
+                            <input type="text" name="doctor" class="form-control" [(ngModel)]="model.doctor"
+                              #doctor="ngModel" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && doctor.invalid,
+                                'is-valid':
+                                  userForm.submitted && !doctor.invalid
+                              }" required />
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (doctor.invalid || doctor.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a doctor Name.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Address</label>
+                            <input type="text" name="doctorAddress" class="form-control"
+                              [(ngModel)]="model.doctorAddress" #doctorAddress="ngModel" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && doctorAddress.invalid,
+                                'is-valid':
+                                  userForm.submitted && !doctorAddress.invalid
+                              }" required />
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (doctorAddress.invalid ||
+                                  doctorAddress.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a Address .
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="card-body">
+                        <div class="form-row">
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip03">Bill Date</label>
+                            <input type="date" name="billDate" class="form-control" [(ngModel)]="billDate"
+                              #billDate1="ngModel" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && billDate1.invalid,
+                                'is-valid':
+                                  userForm.submitted && !billDate1.invalid
+                              }" required />
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (billDate1.invalid ||
+                                  billDate1.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a valid bill Date.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Discount%</label>
+                            <input type="number" name="discount" class="form-control" [(ngModel)]="model.discount"
+                              #discount="ngModel" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && discount.invalid,
+                                'is-valid':
+                                  userForm.submitted && !discount.invalid
+                              }" required />
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (discount.invalid || discount.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a Discount%.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Discount Amount</label>
+                            <input type="number" name="discountAmount" class="form-control"
+                              [(ngModel)]="model.discountAmount" #discountAmount="ngModel" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && discountAmount.invalid,
+                                'is-valid':
+                                  userForm.submitted && !discountAmount.invalid
+                              }" required />
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (discountAmount.invalid ||
+                                  discountAmount.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a Discount Amount.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Remainder</label>
+                            <div class="form-check-inline">
+                              <input type="number" name="Remainder" class="form-control"
+                                [(ngModel)]="model.remainderDays" #Remainder="ngModel" min="0" [ngClass]="{
+                                  'is-invalid':
+                                    userForm.submitted && Remainder.invalid,
+                                  'is-valid':
+                                    userForm.submitted && !Remainder.invalid
+                                }" required (change)="
+                                  remainderDate(model.remainderDays, 'num')
+                                " />
+                              <input class="form-control" placeholder="dd-mm-yyyy" name="RemainderDate"
+                                #RemainderDate="ngModel" [(ngModel)]="duedateCurrent" type="date" required
+                                (ngModelChange)="
+                                  remainderDate(duedateCurrent, 'date')
+                                " />
+                              <!-- <div class="input-group-append">
+                                <div
+                                  class="input-group-text"
+                                  (click)="d2.toggle()"
+                                >
+                                  <i
+                                    class="fa fa-calendar"
+                                    style="cursor: pointer"
+                                  ></i>
+                                </div>
+                              </div> -->
+                            </div>
+
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (Remainder.invalid ||
+                                  Remainder.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a Remainder.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Home Delivery</label>
+                            <select id="basic-form-6" [(ngModel)]="model.homeDelivery" name="homeDelivery" required
+                              class="form-control" #homeDelivery="ngModel">
+                              <option value="Yes">Yes</option>
+                              <option value="No">No</option>
+                            </select>
+
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (homeDelivery.invalid ||
+                                  homeDelivery.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a home delivery .
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="card-body">
+                        <div class="form-row">
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04" class="mb-2">Tax</label><br />
+                            <!-- <div
+                              class="custom-switch custom-switch-primary mt-2 mb-3"
+                            >
+                              <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="color-switch-1"
+                                [(ngModel)]="model.tax"
+                                name="tax"
+                                #tax="ngModel"
+                              />
+                              <label
+                                *ngIf="model.tax"
+                                class="custom-control-label mr-1"
+                                for="color-switch-1"
+                              >
+                                <span>Yes</span>
+                              </label>
+                              <label
+                                *ngIf="!model.tax"
+                                class="custom-control-label mr-1"
+                                for="color-switch-1"
+                              >
+                                <span>No</span>
+                              </label>
+                            </div> -->
+                            <!-- <div class="radio" style="display: flex"> -->
+                            <input class="mr-1" type="radio" name="basicRadio" id="Yes" value="Yes"
+                              [(ngModel)]="model.tax" />
+                            <label for="Yes" class="mr-2">Yes</label>
+                            <input class="mr-1" type="radio" name="basicRadio" id="No" value="No"
+                              [(ngModel)]="model.tax" />
+                            <label for="No">No</label>
+                            <!-- </div> -->
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Sell No</label>
+                            <select id="basic-form-6" [(ngModel)]="model.sellNo" name="sellNo" required
+                              class="form-control" #sellNo="ngModel">
+                              <option value=1>Net Cost</option>
+                              <option value=2>SRT</option>
+                              <option value=3>MRP</option>
+                            </select>
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (sellNo.invalid || sellNo.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a Custmor Name.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Sell on Margin</label>
+                            <input type="number" name="sellMargin" class="form-control" [(ngModel)]="model.sellMargin"
+                              #sellMargin="ngModel" [ngClass]="{
+                                'is-invalid':
+                                  userForm.submitted && sellMargin.invalid,
+                                'is-valid':
+                                  userForm.submitted && !sellMargin.invalid
+                              }" required />
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (sellMargin.invalid ||
+                                  sellMargin.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a Custmor Name.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Points to Redeem</label>
+                            <div class="form-check-inline">
+                              <input type="number" name="pointsRed" class="form-control"
+                                [(ngModel)]="model.radeemToEntry" #pointsRed="ngModel" [ngClass]="{
+                                  'is-invalid':
+                                    userForm.submitted && pointsRed.invalid,
+                                  'is-valid':
+                                    userForm.submitted && !pointsRed.invalid
+                                }" required />
+                              <input type="number" name="pointsRed" class="form-control"
+                                [(ngModel)]="model.radeemFromEntry" #pointsRed="ngModel" [ngClass]="{
+                                  'is-invalid':
+                                    userForm.submitted && pointsRed.invalid,
+                                  'is-valid':
+                                    userForm.submitted && !pointsRed.invalid
+                                }" required />
+                            </div>
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (pointsRed.invalid ||
+                                  pointsRed.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a pointsRed Name.
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-1 form-group">
+                            <label for="validationTooltip04">Mode of Payments</label>
+                            <select id="basic-form-6" name="modepayment" class="form-control"
+                              [(ngModel)]="model.modePayment" #modepayment="ngModel">
+                              <option value="cash ">Cash</option>
+                              <option value="credit">Credit</option>
+                              <option value="digtal">Digital</option>
+                            </select>
+
+                            <div *ngIf="
+                                userForm.submitted &&
+                                (modepayment.invalid ||
+                                  modepayment.errors?.required)
+                              " class="invalid-tooltip">
+                              Please provide a mode of payment .
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="p-2 ml-1">
+                  <!-- <button class="btn btn-primary mr-2" type="submit">
+                    Import from CSV
+                  </button> -->
+                </div>
+                <div class="p-2">
+                  <!-- <button class="btn btn-primary ml-2" type="submit">
+                    Load PO
+                  </button> -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form class="needs-validation mt-2" #orderForm="ngForm">
+              <!-- ngx-datatable-filter -->
+              <fieldset class="form-group">
+                <label for="ngx-filter-ref">Search:
+                  <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200" type="text"
+                    placeholder="Filter the Name column..." (keyup)="filterUpdate($event)" />
+                </label>
+              </fieldset>
+              <ngx-datatable class="bootstrap core-bootstrap" style="height: 400px" [columns]="columns2"
+                [columnMode]="ColumnMode.force" [headerHeight]="50" [rowHeight]="50" [rows]="Items"
+                [externalPaging]="false" [scrollbarH]="true" [scrollbarV]="true">
+                <ngx-datatable-column name="Name" prop="name" [width]="130">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <ng-select [items]="itemArray" bindLabel="itemName" bindValue="id" appendTo="body" autofocus
+                      [(ngModel)]="item.name" name="itemName{{ rowIndex }} " #itemName="ngModel"
+                      placeholder="No Item selected" style="width: 119px" #select9
+                      (keydown.Tab)="defaultChange('Item Name')" (ngModelChange)="packageChange(item, rowIndex)">
+                    </ng-select>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Batch" prop="batch">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="text" autofocus class="form-control" [(ngModel)]="item.batch"
+                      name="batch{{ rowIndex }}" placeholder="Branch" (keydown.Tab)="defaultChange('Batch')" />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Expiry Date" prop="expiryDate">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input [(ngModel)]="item.expiryDate" class="form-control" name="expiryDate{{ rowIndex }}"
+                      placeholder="MM/YY" required (keydown.Tab)="defaultChange('Expiry Date')"
+                      (change)="mgdChange(item.expiryDate, rowIndex)" (keyup)="onExpiryFormate($event);"
+                      (focusout)="datevalidation($event)" />
+                    <div *ngIf="expiryDateFlag" style="color: #fff;background-color: rgba(245, 82, 82, 0.9);">
+                      Please provide a valid Month.
+                    </div>
+                    <!-- <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.expiryDate"
+                    name="expiryDate{{ rowIndex }}"
+                    placeholder="Expiry Date"
+                  /> -->
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Qty Strip" prop=" qtyStrip">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="number" class="form-control" [(ngModel)]="item.qtyStrip" name="qtyStrip{{ rowIndex }}"
+                      placeholder="00.00" (change)="taxAmountChange(item, rowIndex)" />
+                    <!-- <div class="input-group-append">
+                    <div class="input-group-text" (click)="m.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                    </div>
+                  </div> -->
+                    <!-- <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.mfgDate"
+                    name="mfgDate{{ rowIndex }}"
+                    placeholder="Mfg Date"
+                  /> -->
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="MRP" prop="mrp">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="number" class="form-control" [(ngModel)]="item.mrp" name="mrp{{ rowIndex }}"
+                      placeholder="MRP" />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Sale Rate" prop="saleRate" [width]="100">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="number" class="form-control" [(ngModel)]="item.salesRate" name="saleRate{{ rowIndex }}"
+                      placeholder="sale Rate" (keydown.Tab)="defaultChange('SaleRate')"
+                      (change)="taxAmountChange(item, rowIndex)" />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Discount %" prop="Discount" [width]="100">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="number" class="form-control" [(ngModel)]="item.discount" name="Discount{{ rowIndex }}"
+                      placeholder="Discount" (keydown.Tab)="defaultChange('Discount')"
+                      (change)="taxAmountChange(item, rowIndex)" />
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="GST%" prop="gst">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <ng-select #MyNgSelect bindLabel="gstTypeName" appendTo="body" [searchable]="true"
+                      [clearable]="true" [closeOnSelect]="false" style="width: 70px" [(ngModel)]="item.gst"
+                      name="gst{{ rowIndex }}" (change)="taxAmountChange(item, rowIndex)"
+                      (keydown.Tab)="defaultChange('GST')">
+                      <ng-option [value]="item.gstTypeName" *ngFor="let item of gstTypeList">
+                        {{ item.gstTypeName }}
+                      </ng-option>
+                    </ng-select>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Tax Amount" prop="taxAmount" [width]="115">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="number" class="form-control" [(ngModel)]="item.taxAmount"
+                      name="taxAmount{{ rowIndex }}" placeholder="Tax Amount"
+                      (keydown.Tab)="defaultChange('Tax Amount')" />
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Gross Amt" prop="grossAmt">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="number" class="form-control" [(ngModel)]="item.grossAmt" name="grossAmt{{ rowIndex }}"
+                      placeholder="Gross Amt" (keydown.Tab)="defaultChange('Gross Amount')"
+                      (ngModelChange)="netAmountChange(item, rowIndex)" />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Net Amt" prop="netAmt">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="number" class="form-control" [(ngModel)]="item.netAmt"
+                      (keydown.Tab)="defaultChange('Net Amount')" name="netAmt{{ rowIndex }}" placeholder="Net Amt" />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Margin Amount" prop="marginAmount">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="number" class="form-control" [(ngModel)]="item.marginAmount"
+                      (keydown.Tab)="defaultChange('Margin Amount')" name="marginAmount{{ rowIndex }}"
+                      placeholder="margin Amount" />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Margin %" prop="marginper">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <input type="numder" class="form-control" [(ngModel)]="item.marginper" (keydown.Tab)="addItem()"
+                      name="marginper{{ rowIndex }}" placeholder="marginper" />
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Actions">
+                  <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <a *ngIf="rowIndex != Items.length - 1 || Items.length > 1" (click)="removeItem(rowIndex)"><i
+                        class="ft-trash text-danger cursor-pointer"></i></a>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              <button type="button" class="btn btn-primary btn-sm" (click)="addItem()">
+                Add Item
+              </button>
+              <!-- ngx-datatable-filter -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="basic-form-layouts">
+  <div class="row match-height">
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <ngx-datatable #tableRowDetails class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force"
+              [footerHeight]="50" rowHeight="auto" [limit]="10" [rows]="rows" [columns]="columns">
+              <ngx-datatable-column name="Item Name" prop="itemName">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Qty" prop="qty">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Net Rate" prop="netRate"></ngx-datatable-column>
+              <ngx-datatable-column name="Discount" prop="discount">
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Basic Form starts -->
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form>
+              <div class="form-row">
+                <div class="col-md-4 form-group">
+                  <label for="form-1">Gross Amount</label>
+                  <input type="number" (click)="totalGrossFooter()" id="form-1" class="form-control" name="grossAmounts"
+                    #grossAmounts="ngModel" [(ngModel)]="model.grossAmount" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-2">Disc Amount</label>
+                  <input type="number" id="form-2" class="form-control" name="discAmount" #discAmount="ngModel"
+                    [(ngModel)]="model.discAmt" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-5">GST Amount</label>
+                  <input type="number" id="form-5" class="form-control" name="gstamount" #gstamount="ngModel"
+                    [(ngModel)]="model.gstAmt" />
+                </div>
+
+                <div class="col-md-4 form-group">
+                  <label for="form-7"> Off Amount</label>
+                  <input type="number" id="form-7" class="form-control" name="roundAmount" #roundAmount="ngModel"
+                    [(ngModel)]="model.roundAmount" />
+                </div>
+
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Net Amount</label>
+                  <input type="number" id="form-8" class="form-control" name="netAmount" #netAmount="ngModel"
+                    [(ngModel)]="model.netAmt" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Other Expenses</label>
+                  <input type="number" id="form-8" class="form-control" name="netAmount" #netAmount="ngModel"
+                    [(ngModel)]="model.otherExpenses" />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Expenses</label>
+                  <input type="number" id="form-8" class="form-control" name="expenses" #expenses="ngModel"
+                    [(ngModel)]="model.expenses" />
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary mr-2" (click)="saveSalesEntry()" *ngIf="!CustomeId">
+                <i class="ft-check-square mr-1"></i>Save
+              </button>
+              <button type="button" class="btn btn-primary mr-2" (click)="UpdateSalesEntry()" *ngIf="CustomeId">
+                <i class="ft-check-square mr-1"></i>Update
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="goBack()">
+                <i class="ft-x mr-1"></i>Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Basic Form ends -->
+    <!-- Hidden Label starts -->
+
+    <!-- Hidden Label ends -->
+  </div>
+</section>
+<div class="" [ngClass]="{ 'show-overlay': !isNavbarSeachTextEmpty }" (click)="onWrapperClick()">
+  <div #customizer class="customizer d-none d-lg-none d-xl-block mt-5"
+    [ngClass]="{ open: isOpen, customizer11: popUpselect }">
+    <a class="customizer-close" (click)="closeCustomizer()">
+      <i class="ft-x font-medium-3"></i></a><a class="customizer-toggle bg-primary" id="customizer-toggle-icon"
+      (click)="toggleCustomizer()">
+      <i class="ft-settings font-medium-1 spinner white align-middle"></i>
+    </a>
+    <div class="customizer-content p-3 ps-container ps-theme-dark mb-3"
+      data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a">
+      <ng-container *ngIf="!popUpselect">
+        <h4 class="text-uppercase" style="color: #757575">Select Default</h4>
+        <hr />
+        <h6>
+          <span>Default: {{ itemNameSelect1 }} </span>
+        </h6>
+        <div>
+          <label for="validationTo">Select Priority </label>
+          <ng-select [items]="itemSelect" bindLabel="itemName" bindValue="itemName" [(ngModel)]="itemNameSelect"
+            name="itemNameSelec" #itemNameSelec="ngModel" placeholder="Select priority"
+            (search)="OnpriorityChange($event)">
+          </ng-select>
+        </div>
+        <button class="btn btn-primary mt-1" type="button" style="float: right" (click)="updatteSetting()">
+          Submit
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>

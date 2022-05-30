@@ -1,0 +1,211 @@
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-header">
+            <h4>Bulk creation</h4>
+          </div>
+          <div class="card-body">
+            <form #userForm="ngForm">
+              <!-- ngx-datatable-filter -->
+              <fieldset class="form-group">
+                <label for="ngx-filter-ref"
+                  >Search:
+                  <input
+                    id="ngx-filter-ref"
+                    class="form-control form-control-sm d-inline-block width-200"
+                    type="text"
+                    placeholder="Filter the Name column..."
+                  />
+                </label>
+              </fieldset>
+              <ngx-datatable
+                class="bootstrap core-bootstrap opening-stock"
+                style="height: 400px"
+                [columns]="columns2"
+                [columnMode]="ColumnMode.force"
+                [headerHeight]="50"
+                [rowHeight]="50"
+                [rows]="Items"
+                [externalPaging]="false"
+                [scrollbarH]="true"
+                [scrollbarV]="true"
+              >
+                <ngx-datatable-column name="Name" prop="actName" [width]="130">
+                  <ng-template
+                    let-item="row"
+                    ngx-datatable-cell-template
+                    let-rowIndex="rowIndex"
+                  >
+                    <input
+                      type="text"
+                      id="hidden-label-form-1"
+                      class="form-control"
+                      name="cname{{ rowIndex }}"
+                      [(ngModel)]="item.actName"
+                      #name="ngModel"
+                      [ngClass]="{
+                        'is-invalid': userForm.submitted && name.invalid,
+                        'is-valid': userForm.submitted && !name.invalid
+                      }"
+                      required
+                    />
+                    <div
+                      *ngIf="
+                        userForm.submitted &&
+                        (name.invalid || name.errors?.required)
+                      "
+                      class="invalid-tooltip"
+                    >
+                      Please provide a valids Name.
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column
+                  name="Account Head"
+                  prop="actGroup"
+                  [width]="160"
+                >
+                  <ng-template
+                    let-item="row"
+                    ngx-datatable-cell-template
+                    let-rowIndex="rowIndex"
+                  >
+                    <select
+                      id="basic-form-6"
+                      name="group{{ rowIndex }}"
+                      class="form-control"
+                      [(ngModel)]="item.actGroup"
+                      #name="ngModel"
+                      required
+                    >
+                      <option value="none" selected disabled>
+                        Account Head
+                      </option>
+                      <option
+                        *ngFor="let item of accHeadArray"
+                        value="{{ item.accountHeadName }}"
+                      >
+                        {{ item.accountHeadName }}
+                      </option>
+                    </select>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column
+                  name="Account Type"
+                  prop="actType"
+                  [width]="160"
+                >
+                  <ng-template
+                    let-item="row"
+                    ngx-datatable-cell-template
+                    let-rowIndex="rowIndex"
+                  >
+                    <select
+                      id="basic-form-6"
+                      name="tye{{ rowIndex }}"
+                      class="form-control"
+                      [(ngModel)]="item.actType"
+                      #name="ngModel"
+                      required
+                    >
+                      <option value="none" selected disabled>
+                        Account Type
+                      </option>
+                      <option
+                        *ngFor="let item of accTypeArray"
+                        value="{{ item.accountTypeName }}"
+                      >
+                        {{ item.accountTypeName }}
+                      </option>
+                    </select>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column
+                  name="openingBal"
+                  prop="openingBal"
+                  [width]="160"
+                >
+                  <ng-template
+                    let-item="row"
+                    ngx-datatable-cell-template
+                    let-rowIndex="rowIndex"
+                  >
+                    <input
+                      type="number"
+                      id="hidden-label-form-5"
+                      class="form-control"
+                      name="balance{{ rowIndex }}"
+                      [(ngModel)]="item.openingBal"
+                      #name="ngModel"
+                      required
+                    />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column
+                  name="openingBalDate"
+                  prop="openingBalDate"
+                  [width]="160"
+                >
+                  <ng-template
+                    let-item="row"
+                    ngx-datatable-cell-template
+                    let-rowIndex="rowIndex"
+                  >
+                    <input
+                      type="date"
+                      id="hidden-label-form-5"
+                      class="form-control"
+                      name="openingBalDate{{ rowIndex }}"
+                      [(ngModel)]="item.openingBalDate"
+                      #name="ngModel"
+                      required
+                    />
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Actions">
+                  <ng-template
+                    let-item="row"
+                    ngx-datatable-cell-template
+                    let-rowIndex="rowIndex"
+                    [width]="100"
+                  >
+                    <a
+                      *ngIf="rowIndex != Items.length - 1 || Items.length > 1"
+                      (click)="removeItem(rowIndex)"
+                      ><i class="ft-trash text-danger cursor-pointer"></i
+                    ></a>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                (click)="addItem()"
+              >
+                Add Item
+              </button>
+            </form>
+
+            <!-- ngx-datatable-filter -->
+          </div>
+          <div class="card-footer">
+            <button
+              type="submit"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit()"
+            >
+              <i class="ft-check-square mr-1"></i>
+              Save
+            </button>
+
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,246 @@
+<div class="col-lg-12 col-12">
+    <ngx-spinner></ngx-spinner>
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title" *ngIf="!CustomeId">Add Customer</h4>
+        <h4 class="card-title" *ngIf="CustomeId">Edit Customer</h4>
+      </div>
+      <div class="card-content" id="frmcard">
+        <div class="card-body">
+          <form
+            #userForm="ngForm"
+            class="needs-validation"
+            (ngSubmit)="userForm.form.valid && onSubmit(userForm)"
+          >
+            <div class="form-row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="hidden-label-form-1">Customer Name</label>
+                  <input
+                    type="text"
+                    id="hidden-label-form-1"
+                    class="form-control"
+                    name="cname"
+                    [(ngModel)]="model.customerName"
+                    #cname="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && cname.invalid,
+                      'is-valid': userForm.submitted && !cname.invalid
+                    }"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      userForm.submitted &&
+                      (cname.invalid || cname.errors?.required)
+                    "
+                    class="invalid-tooltip"
+                  >
+                    Please provide a valid customer name.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="hidden-label-form-2">Mobile Number</label>
+                  <input
+                    type="tel"
+                    id="hidden-label-form-2"
+                    class="form-control"
+                    name="mobile"
+                    [(ngModel)]="model.mobileNo"
+                    #mobile="ngModel"
+                    (keypress)="mobileNumber($event)"
+                    maxlength="13"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && mobile.invalid,
+                      'is-valid': userForm.submitted && !mobile.invalid
+                    }"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      userForm.submitted &&
+                      (mobile.invalid || mobile.errors?.required)
+                    "
+                    class="invalid-tooltip"
+                  >
+                    Please provide a valid mobile number.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="hidden-label-form-3">Address</label>
+                  <input
+                    type="text"
+                    id="hidden-label-form-3"
+                    class="form-control"
+                    name="address1"
+                    [(ngModel)]="model.address1"
+                    #address1="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && address1.invalid
+                    }"
+                  />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group position-relative">
+                  <label for="hidden-label-form-4">GSTNo</label>
+                  <input
+                    type="text"
+                    id="hidden-label-form-4"
+                    class="form-control pickadate"
+                    name="gstNo"
+                    [(ngModel)]="model.gstNo"
+                    #gstNo="ngModel"
+                    pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && gstNo.invalid
+                    }"
+                    (ngModelChange)="model.gstNo = $event.toUpperCase()"
+                    (change)="gstValidation(gstNo.errors?.pattern)"
+                  />
+                  <small
+                    class="form-text text-muted danger"
+                    *ngIf="gstNo.errors?.pattern"
+                    >Required Valid GST Number</small
+                  >
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group mb-2">
+                  <label for="basic-form-6">GST Type</label>
+                  <select
+                    id="basic-form-6"
+                    class="form-control"
+                    name="gstType"
+                    [(ngModel)]="model.gstType"
+                    #gstType="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && gstType.invalid
+                    }"
+                  >
+                    <option value="none" selected disabled>GST Type</option>
+                    <option
+                      *ngFor="let item of gstTypeList"
+                      value="{{ item.id }}"
+                    >
+                      {{ item.gstTypeName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="hidden-label-form-5">Discount</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control"
+                    name="discount"
+                    [(ngModel)]="model.discount"
+                    #discount="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && discount.invalid
+                    }"
+                  />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="hidden-label-form-6">Rate Slab</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control"
+                    name="rateSlab"
+                    [(ngModel)]="model.rateSlab"
+                    #rateSlab="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && rateSlab.invalid
+                    }"
+                  />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group mb-2">
+                  <label for="basic-form-6">Mode of Payment</label>
+                  <select
+                    id="basic-form-6"
+                    name="interested"
+                    class="form-control"
+                    name="modeOfPayment"
+                    [(ngModel)]="model.modeOfPayment"
+                    #modeOfPayment="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && modeOfPayment.invalid
+                    }"
+                  >
+                    <option value="none" selected disabled>
+                      Mode of Payment
+                    </option>
+                    <option
+                      *ngFor="let item of paymentMethodList"
+                      value="{{ item.id }}"
+                    >
+                      {{ item.paymentModeName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="hidden-label-form-7">Opening Balance</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control"
+                    name="openingBal"
+                    [(ngModel)]="model.openingBal"
+                    #openingBal="ngModel"
+                    [ngClass]="{
+                      'is-invalid': userForm.submitted && openingBal.invalid
+                    }"
+                  />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="hidden-label-form-8">Opening Balance Date</label>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="dd-mm-yyyy"
+                      name="dp"
+                      [(ngModel)]="model.openingBalDate"
+                      type="date"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" *ngIf="!CustomeId" class="btn btn-primary mr-2">
+              <i class="ft-check-square mr-1"></i>
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              <i class="ft-check-square mr-1"></i>
+              Update
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

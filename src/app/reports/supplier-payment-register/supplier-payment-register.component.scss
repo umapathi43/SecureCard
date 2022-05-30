@@ -1,0 +1,24 @@
+@import "../../../assets/sass/libs/datatables.scss";
+
+// .ng-dropdown-panel.ng-select-top,
+// .ng-dropdown-panel.ng-select-bottom {
+//   display: none !important;
+// }
+// .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
+//     text-overflow: ellipsis;
+//     flex-wrap: inherit !important;
+//     white-space: normal;
+//     overflow: hidden;
+// }
+.input {
+  border: 0;
+  outline: 0;
+}
+
+.selected {
+  margin-right: 0.2rem;
+}
+
+.close-selected {
+  margin-left: 0.3rem;
+}

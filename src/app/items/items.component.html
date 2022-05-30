@@ -1,0 +1,172 @@
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12"></div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+            Items
+            <button
+              type="button"
+              (click)="exportPdf()"
+              class="btn btn-primary mr-2"
+            >
+              Export Pdf
+            </button>
+            <button
+              type="button"
+              (click)="exportExcel()"
+              class="btn btn-primary mr-2"
+            >
+              Export Excel
+            </button>
+            <button
+              type="button"
+              routerLink="/items/additem"
+              style="float: right"
+              class="btn btn-primary mr-2"
+            >
+              Add Item
+            </button>
+            <button
+              type="button"
+              routerLink="/items/bluck-items"
+              style="float: right"
+              class="btn btn-primary mr-2"
+            >
+              Bluck Add
+            </button>
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group">
+              <label
+                >Show
+                <select
+                  name="users-list-select"
+                  class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                  (click)="updateLimit($event)"
+                >
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                entries</label
+              >
+              <label for="ngx-filter-ref" class="float-right"
+                >Search:
+                <input
+                  id="ngx-filter-ref"
+                  class="form-control form-control-sm d-inline-block width-200 ml-1"
+                  type="text"
+                  (keyup)="filterUpdate($event)"
+                />
+              </label>
+            </fieldset>
+            <ngx-datatable
+              #tableRowDetails
+              class="bootstrap core-bootstrap"
+              [columnMode]="ColumnMode.force"
+              [footerHeight]="50"
+              rowHeight="auto"
+              [limit]="10"
+              [rows]="item"
+              [columns]="columns"
+            >
+              <ngx-datatable-row-detail rowHeight="auto">
+                <ng-template
+                  let-row="row"
+                  let-expanded="expanded"
+                  ngx-datatable-row-detail-template
+                >
+                  <div class="ml-5 my-1">
+                    <div><strong>Category : </strong> {{ row.Category }}</div>
+                    <div><strong>Schedule :</strong> {{ row.scheduler }}</div>
+                    <div><strong>RackNo :</strong> {{ row.RackNo }}</div>
+                    <div><strong>RackGroup :</strong> {{ row.RackGroup }}</div>
+                    <div>
+                      <strong>mindiscandmaxdisc :</strong>
+                      {{ row.mindiscandmaxdisc }}
+                    </div>
+                    <div>
+                      <strong>minqtyandmaxqty :</strong>
+                      {{ row.minqtyandmaxqty }}
+                    </div>
+
+                    <div><strong>gst :</strong> {{ row.gst }}</div>
+                    <div><strong>hsnno :</strong> {{ row.hsnno }}</div>
+                    <div><strong>ratea :</strong> {{ row.ratea }}</div>
+                    <div>
+                      <strong>ratebuptoh :</strong> {{ row.ratebuptoh }}
+                    </div>
+                    <div><strong>discslab :</strong> {{ row.discslab }}</div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-row-detail>
+              <ngx-datatable-column
+                [width]="50"
+                [resizeable]="false"
+                [sortable]="false"
+                [draggable]="false"
+                [canAutoResize]="false"
+              >
+                <ng-template
+                  let-row="row"
+                  let-expanded="expanded"
+                  ngx-datatable-cell-template
+                >
+                  <a
+                    href="javascript:void(0)"
+                    [class.datatable-icon-right]="!expanded"
+                    [class.datatable-icon-down]="expanded"
+                    title="Expand/Collapse Row"
+                    (click)="rowDetailsToggleExpand(row)"
+                  >
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="ID" prop="id" [width]="50">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Name" prop="itemName" [width]="150">
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Packing"
+                prop="packName"
+                [width]="150"
+              ></ngx-datatable-column>
+              <ngx-datatable-column
+                name="QtyPerPack"
+                prop="qty_per_pack"
+                [width]="120"
+              ></ngx-datatable-column>
+              <ngx-datatable-column
+                name="Mfg"
+                prop="mgf"
+                [width]="70"
+              ></ngx-datatable-column>
+              <ngx-datatable-column
+                name="Group"
+                prop="group"
+                [width]="70"
+              ></ngx-datatable-column>
+              <ngx-datatable-column name="Actions" [width]="50">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <a [routerLink]="['/items/edit-item/', row.id]" class="mr-1"
+                    ><i class="ft-edit text-primary cursor-pointer"></i
+                  ></a>
+                  <a (click)="Confirm(row)"
+                    ><i class="ft-trash text-danger cursor-pointer"></i
+                  ></a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <!-- ngx-datatable-filter -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

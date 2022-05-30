@@ -1,0 +1,368 @@
+<div class="col-lg-12 col-12">
+  <ngx-spinner></ngx-spinner>
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" *ngIf="!CustomeId">Add Item</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Item</h4>
+    </div>
+    <div class="card-content">
+      <div class="card-body" id="frmcard">
+        <form
+          #itmForm="ngForm"
+          (ngSubmit)="itmForm.form.valid && createItem(itmForm)"
+        >
+          <div class="form-row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Name</label>
+                <input
+                  type="text"
+                  [(ngModel)]="model.itemName"
+                  id="hidden-label-form-1"
+                  class="form-control"
+                  name="itemname"
+                  #itemname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': itmForm.submitted && itemname.invalid,
+                    'is-valid': itmForm.submitted && !itemname.invalid
+                  }"
+                  required
+                />
+                <div
+                  *ngIf="
+                    itmForm.submitted &&
+                    (itemname.invalid || itemname.errors?.required)
+                  "
+                  class="invalid-tooltip"
+                >
+                  Please provide a valids Name.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Packing</label>
+                <ng-select
+                  [items]="packList"
+                  bindLabel="packName"
+                  bindValue="packName"
+                  [(ngModel)]="model.packName"
+                  name="packn"
+                  #packn="ngModel"
+                  placeholder="No Packing selected"
+                  (keyup.enter)="AddPack(model.packName)"
+                  (search)="OnPackChange($event)"
+                  (ngModelChange)="qtyChange(model.packName)"
+                  #select2
+                  (change)="select2.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-1">Qty Per Pack</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-1"
+                  class="form-control"
+                  name="qytPerPack"
+                  #qytPerPack="ngModel"
+                  [(ngModel)]="model.qty_per_pack"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Mfg</label>
+                <ng-select
+                  [items]="manfList"
+                  bindLabel="manufacturerName"
+                  bindValue="id"
+                  [(ngModel)]="model.manufactureEntity.id"
+                  name="mafnn"
+                  #mafnnn="ngModel"
+                  #select1
+                  (keyup.enter)="AddManf(model.manufactureEntity.id)"
+                  (search)="OnManfChange($event)"
+                  placeholder="No Mfg selected"
+                  (change)="select1.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Group</label>
+                <ng-select
+                  [items]="grpList"
+                  bindLabel="groupName"
+                  bindValue="id"
+                  [(ngModel)]="model.groupEntity.id"
+                  name="groupname"
+                  #groupname="ngModel"
+                  (keyup.enter)="AddGrp(model.groupEntity.id)"
+                  (search)="OnGrpChange($event)"
+                  placeholder="No Group selected"
+                  #select3
+                  (change)="select3.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Store Type</label>
+                <ng-select
+                  [items]="strTypeList"
+                  bindLabel="storeTypeName"
+                  bindValue="id"
+                  [(ngModel)]="model.storeTypeEntity.id"
+                  name="storeTypeName"
+                  #storeTypeName="ngModel"
+                  (keyup.enter)="AddStrType(model.storeTypeEntity.id)"
+                  (search)="OnStrTypeChange($event)"
+                  placeholder="No Store Type selected"
+                  #select4
+                  (change)="select4.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Schedule</label>
+                <ng-select
+                  [items]="schList"
+                  bindLabel="schedulerName"
+                  bindValue="id"
+                  [(ngModel)]="model.scheduleEntity.id"
+                  name="schedulerName"
+                  #schedulerName="ngModel"
+                  (keyup.enter)="AddSch(model.scheduleEntity.id)"
+                  (search)="OnSchChange($event)"
+                  placeholder="No Schedule selected"
+                  #select5
+                  (change)="select5.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Composition</label>
+                <ng-select
+                  [items]="compList"
+                  bindLabel="cName"
+                  bindValue="id"
+                  [(ngModel)]="model.compositionEntity.id"
+                  name="cName"
+                  #cName="ngModel"
+                  (keyup.enter)="AddComp(model.compositionEntity.id)"
+                  (search)="OnCmpChange($event)"
+                  placeholder="No Composition selected"
+                  #select6
+                  (change)="select6.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">HSN</label>
+                <ng-select
+                  [items]="hsnList"
+                  bindLabel="hsnName"
+                  bindValue="id"
+                  [(ngModel)]="model.hsnsac.id"
+                  name="hsnn"
+                  #hsnn="ngModel"
+                  (keyup.enter)="Addhsn(model.hsnsac.id)"
+                  (search)="OnHsnChange($event)"
+                  placeholder="No HSN selected"
+                  #select7
+                  (change)="select7.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7align-items-center"
+                  >Min Discount
+                </label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="minDis"
+                  #minDis="ngModel"
+                  [(ngModel)]="model.min_amt"
+                  placeholder="Min Dis"
+                  (change)="limitDecimalPlaces($event, 2)"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7align-items-center">
+                  Max Discount</label
+                >
+
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="maxDis"
+                  #maxDis="ngModel"
+                  [(ngModel)]="model.max_amt"
+                  placeholder="Max Dis"
+                  pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                  step="0.01"
+                  (change)="limitDecimalPlaces($event, 2)"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Min Quantity</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="minQty"
+                  #minQty="ngModel"
+                  [(ngModel)]="model.min_qty"
+                  placeholder="min"
+                  (change)="limitDecimalPlaces($event, 2)"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7"> Max quantity</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="maxQty"
+                  maxQty="ngModel"
+                  [(ngModel)]="model.max_qty"
+                  placeholder="max"
+                  (change)="limitDecimalPlaces($event, 2)"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Rate a</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  [(ngModel)]="model.rateA"
+                  name="rateA"
+                  #rateA="ngModel"
+                  (change)="limitDecimalPlaces($event, 2)"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Rate b</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  [(ngModel)]="model.rateB"
+                  name="rateB"
+                  #rateB="ngModel"
+                  (change)="limitDecimalPlaces($event, 2)"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Rate c</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  [(ngModel)]="model.rateC"
+                  name="rateC"
+                  #rateC="ngModel"
+                  (change)="limitDecimalPlaces($event, 2)"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Rate d</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  [(ngModel)]="model.rateD"
+                  name="rateD"
+                  #rateD="ngModel"
+                  (change)="limitDecimalPlaces($event, 2)"
+                />
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">GST</label>
+                <ng-select
+                  [items]="gstTypeList"
+                  bindLabel="gstTypeName"
+                  bindValue="gstTypeName"
+                  [(ngModel)]="model.gstType"
+                  name="gstn"
+                  #gstn="ngModel"
+                  placeholder="No GST selected"
+                  #select8
+                  (change)="select8.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Discount Slab</label>
+                <ng-select
+                  [items]="discountList"
+                  bindLabel="discountSlabName"
+                  bindValue="id"
+                  [(ngModel)]="model.discSalbEntity.id"
+                  name="discn"
+                  #discn="ngModel"
+                  (keyup.enter)="AddDiscountSlab(model.discSalbEntity.id)"
+                  (search)="OnDiscChange($event)"
+                  placeholder="No Discount Slab selected"
+                  #select9
+                  (change)="select9.blur()"
+                >
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mr-2" *ngIf="!CustomeId">
+            <i class="ft-check-square mr-1"></i>Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="updateItem(itmForm)"
+          >
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

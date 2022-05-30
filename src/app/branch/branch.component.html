@@ -1,0 +1,116 @@
+<section id="ngx-datatable-filter">
+  <ngx-spinner></ngx-spinner>
+  <div class="row">
+    <div class="col-12"></div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+            Branches
+            <button
+              type="button"
+              (click)="exportPdf()"
+              class="btn btn-primary mr-2"
+            >
+              Export Pdf
+            </button>
+            <button
+              type="button"
+              (click)="exportExcel()"
+              class="btn btn-primary mr-2"
+            >
+              Export Excel
+            </button>
+            <button
+              type="button"
+              routerLink="/branch/addbranch"
+              style="float: right"
+              class="btn btn-primary mr-2"
+            >
+              Add Branch
+            </button>
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group">
+              <label
+                >Show
+                <select
+                  name="users-list-select"
+                  class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                  (click)="updateLimit($event)"
+                >
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                entries</label
+              >
+              <label for="ngx-filter-ref" class="float-right"
+                >Search:
+                <input
+                  id="ngx-filter-ref"
+                  class="form-control form-control-sm d-inline-block width-200 ml-1"
+                  type="text"
+                  (keyup)="filterUpdate($event)"
+                />
+              </label>
+            </fieldset>
+            <ngx-datatable
+              #tableRowDetails
+              class="bootstrap core-bootstrap"
+              [columnMode]="ColumnMode.force"
+              [footerHeight]="50"
+              rowHeight="auto"
+              [limit]="10"
+              [rows]="rows"
+              [columns]="columns"
+            >
+              <ngx-datatable-column name="ID" prop="id" [width]="50">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Name" prop="branchName" [width]="150">
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="address"
+                prop="addreess"
+                [width]="150"
+              ></ngx-datatable-column>
+              <ngx-datatable-column
+                name="contactname"
+                prop="contact_name"
+                [width]="150"
+              ></ngx-datatable-column>
+              <ngx-datatable-column
+                name="Mobile"
+                prop="mobileNo"
+                [width]="150"
+              ></ngx-datatable-column>
+              <ngx-datatable-column
+                name="Location"
+                prop="location"
+                [width]="150"
+              ></ngx-datatable-column>
+
+              <ngx-datatable-column name="Actions" [width]="50">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <a
+                    [routerLink]="['/branch/edit-branch/', row.id]"
+                    class="mr-1"
+                    ><i class="ft-edit text-primary cursor-pointer"></i
+                  ></a>
+                  <a (click)="Confirm(row)"
+                    ><i class="ft-trash text-danger cursor-pointer"></i
+                  ></a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <!-- ngx-datatable-filter -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

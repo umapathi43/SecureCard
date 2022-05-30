@@ -1,0 +1,56 @@
+<!-- Theme customizer Starts-->
+<div
+  #customizer
+  class="customizer d-none d-lg-none d-xl-block"
+  [ngClass]="{ open: isOpen }"
+  [attr.data-background-color]="
+    config?.layout.variant === 'Transparent'
+      ? 'black !important'
+      : bgColor + '!important'
+  "
+  [attr.data-image]="bgImage"
+>
+  <a
+    class="customizer-toggle bg-primary"
+    id="customizer-toggle-icon"
+    (click)="toggleCustomizer()"
+  >
+    <i class="ft-help-circle font-medium-1 white align-middle"></i>
+  </a>
+  <div
+    [perfectScrollbar]
+    class=""
+    data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a"
+  >
+    <div class="card-header mb-1" style="padding: 0.5em 0.5em; top: 5px">
+      <h6 class="text-uppercase">Shortcut Keys</h6>
+      <a
+        class="customizer-close"
+        style="top: -1px !important"
+        (click)="closeCustomizer()"
+      >
+        <i class="ft-x font-medium-3"></i
+      ></a>
+    </div>
+    <div class="row" [ngStyle]="{ 'background-color': bgColor + '!important' }">
+      <!-- style="background-image: url('assets/img/sidebar-bg/01.jpg')" -->
+      <ng-container *ngFor="let keys of shortctKeys ? shortctKeys : []">
+        <div class="col-md-12">
+          <div
+            class="card card-1"
+            [ngClass]="keys?.color"
+            style="margin: 7px !important; width: 195px"
+          >
+            <div class="text-center rb text-dark px-1">
+              {{ keys.name }}
+            </div>
+            <div class="primary text-center rb d-block py-0 bg-white px-3">
+              {{ keys.key }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<!-- Theme customizer Ends-->

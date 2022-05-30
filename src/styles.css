@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+.float-right {
+  float: right;
+}
+.ngx-datatable
+  .datatable-header
+  .datatable-header-cell.sortable
+  .datatable-header-cell-wrapper {
+  font-size: 12px !important;
+}
+.ngx-datatable .datatable-body-cell,
+.ngx-datatable .datatable-header-cell {
+  font-size: 13px !important;
+}
+.ng-select .ng-select-container {
+  min-height: 20px;
+}
+.ng-dropdown-panel.ng-select-top,
+.ng-dropdown-panel.ng-select-bottom {
+  font-size: 1em !important;
+}
+.ng-dropdown-panel.ajustar {
+  font-size: 1em !important;
+}
+.ng-select.ng-select-single .ng-select-container {
+  height: 31px;
+}
+.ng-select.ng-select-single .ng-select-container .ng-value-container {
+  font-size: 1em;
+}
+.ng-select.ng-select-single
+  .ng-select-container
+  .ng-value-container
+  .ng-placeholder {
+  font-size: 1em;
+}
+.core-bootstrap .form-control {
+  font-size: 1em;
+}
+.date-font {
+  font-size: 0.75em;
+  height: 30.5px;
+}
+.input-group-append {
+  height: 30.5px !important;
+}
+.btn {
+  font-size: 1rem;
+  line-height: 0.75rem;
+}
+.form-control {
+  font-size: 0.75rem !important;
+}

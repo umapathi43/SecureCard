@@ -1,0 +1,300 @@
+<section id="tooltip-validation">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form class="needs-validation" #orderForm="ngForm">
+              <div class="form-row">
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip01">Order Date</label>
+                  <input
+                    type="date"
+                    name="fname"
+                    class="form-control"
+                    id="validationTooltip01"
+                    [(ngModel)]="model.orderDate"
+                    #fname="ngModel"
+                    [ngClass]="{
+                      'is-invalid': orderForm.submitted && fname.invalid,
+                      'is-valid': orderForm.submitted && !fname.invalid
+                    }"
+                    required
+                  />
+                  <div
+                    *ngIf="orderForm.submitted && !fname.errors?.required"
+                    class="valid-tooltip"
+                  >
+                    Looks good!
+                  </div>
+                </div>
+
+                <div class="col-md-2 mb-1 form-group">
+                  <div class="fonticon-wrap">
+                    <i class="feather icon-settings"></i>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary mr-2" type="submit">
+                Form MIn & Max
+              </button>
+              <button class="btn btn-primary mr-2" type="submit">
+                From Sales
+              </button>
+              <button class="btn btn-primary mr-2" type="submit">
+                From Shortage
+              </button>
+              <button class="btn btn-primary mr-2" type="submit">
+                Form So
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group">
+              <label for="ngx-filter-ref"
+                >Search:
+                <input
+                  id="ngx-filter-ref"
+                  class="form-control form-control-sm d-inline-block width-200"
+                  type="text"
+                  placeholder="Filter the Name column..."
+                />
+              </label>
+            </fieldset>
+            <ngx-datatable
+              class="bootstrap core-bootstrap"
+              style="height: 400px"
+              [columns]="columns2"
+              [columnMode]="ColumnMode.force"
+              [headerHeight]="50"
+              [rowHeight]="50"
+              [rows]="Items"
+              [externalPaging]="false"
+              [scrollbarH]="true"
+              [scrollbarV]="true"
+            >
+              <ngx-datatable-column
+                name="Item Name"
+                prop="itemName"
+                [width]="80"
+              >
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.itemName"
+                    name="name{{ rowIndex }}"
+                    placeholder="Name"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Order Qty"
+                prop="orderQty"
+                [width]="60"
+              >
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.orderQty"
+                    name="batch{{ rowIndex }}"
+                    placeholder="OrderQty"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Min Qty" prop="minQty" [width]="60">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.minQty"
+                    name="minQty{{ rowIndex }}"
+                    placeholder="min Qty"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="maxQty" prop="maxQty" [width]="60">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.maxQty"
+                    name="maxQty{{ rowIndex }}"
+                    placeholder="max Qty"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="stock" prop="stock" [width]="60">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.stock"
+                    name="stock{{ rowIndex }}"
+                    placeholder="max Qty"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="y.sale" prop="ysale" [width]="60">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.ysale"
+                    name="y.sale{{ rowIndex }}"
+                    placeholder="Qty"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="w.sale" prop="wsale" [width]="60">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.wsale"
+                    name="wsale{{ rowIndex }}"
+                    placeholder="w.sale "
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="M.sale" prop="msale" [width]="60">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.msale"
+                    name="msale{{ rowIndex }}"
+                    placeholder="M.sale"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="p.m.sale" prop="pmSale" [width]="60">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.pmSale"
+                    name="pmSale{{ rowIndex }}"
+                    placeholder="pmSale"
+                    (keydown.Tab)="addItem()"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Actions">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <a
+                    *ngIf="rowIndex != Items.length - 1 || Items.length > 1"
+                    (click)="removeItem(rowIndex)"
+                    ><i class="ft-trash text-danger cursor-pointer"></i
+                  ></a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="addItem()"
+            >
+              Add Item
+            </button>
+            <!-- ngx-datatable-filter -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="basic-form-layouts">
+  <div class="row match-height">
+    <!-- Basic Form ends -->
+    <!-- Hidden Label starts -->
+    <div class="col-lg-12 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3">Total Count:</div>
+              <div class="col-md-3">Order Qty:</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Hidden Label ends -->
+  </div>
+</section>
+<button
+  *ngIf="!orderId"
+  type="button"
+  class="btn btn-primary mr-2"
+  [disabled]="!orderForm.valid"
+  (click)="onSubmit()"
+>
+  <i class="ft-check-square mr-1"></i>Save
+</button>
+<button
+  *ngIf="orderId"
+  type="button"
+  class="btn btn-primary mr-2"
+  (click)="onUpdate()"
+>
+  <i class="ft-check-square mr-1"></i>Update
+</button>
+<button type="button" class="btn btn-secondary" (click)="goBack()">
+  <i class="ft-x mr-1"></i>Cancel
+</button>

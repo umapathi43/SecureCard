@@ -1,0 +1,91 @@
+.print-setting-bg {
+  background-color: #f1f1f1;
+  height: 100% !important;
+}
+
+.mt-n3,
+.my-n3 {
+  margin-top: -1rem !important;
+}
+.pb-3,
+.py-3 {
+  padding-bottom: 1rem !important;
+}
+.pt-3,
+.py-3 {
+  padding-top: 1rem !important;
+}
+.h-100 {
+  height: 100% !important;
+}
+.print-set .settings {
+  height: calc(100% - 98px);
+}
+.nav-tabs .nav-item {
+  margin-bottom: -1px;
+}
+.print-set .print-set-tab .nav-link.active,
+.print-set .print-set-tab .nav-link:hover {
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--primary-color600);
+  font-family: RobotoFont-bold, Arial, Helvetica, sans-serif;
+}
+
+.print-set .print-set-tab .nav-link {
+  padding: 4px 0;
+  font-size: 12px;
+  border: none;
+  margin-right: 8px;
+}
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+.nav-tabs .nav-link {
+  color: #474747;
+}
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.nav-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+}
+.print-set #print-set-tab {
+  padding: 16px 0;
+  height: calc(100% - 30px);
+  overflow: auto;
+}
+.modal .custom-control {
+  padding-left: 25px;
+  margin-right: 15px;
+}
+
+.custom-control {
+  position: relative;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
+}
+.print-set .print-set-tab .nav-link.active,
+.print-set .print-set-tab .nav-link:hover {
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--primary-color600);
+  font-family: RobotoFont-bold, Arial, Helvetica, sans-serif;
+}
+.print-pre .pp-page {
+  overflow: auto;
+  height: 100%;
+}
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.bg-white {
+  background-color: #fff !important;
+}

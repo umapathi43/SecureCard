@@ -1,0 +1,250 @@
+<ngx-spinner></ngx-spinner>
+<section id="ngx-datatable-filter">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <h4>Bulk Hsnsac Creation</h4>
+                    </div>
+                    <form #userForm="ngForm" (ngSubmit)="userForm.form.valid && createItem(userForm)">
+                        <div class="card-body" id = "frmcard">
+                            <!-- ngx-datatable-filter -->
+                            <fieldset class="form-group">
+                                <label for="ngx-filter-ref">Search:
+                                    <input id="ngx-filter-ref"
+                                        class="form-control form-control-sm d-inline-block width-200" type="text"
+                                        placeholder="Filter the Name column..." />
+                                </label>
+                            </fieldset>
+                            <ngx-datatable class="bootstrap core-bootstrap opening-stock" style="height: 400px"
+                                [columns]="columns2" [columnMode]="ColumnMode.force" [headerHeight]="50"
+                                [rowHeight]="50" [rows]="Items" [externalPaging]="false" [scrollbarH]="true"
+                                [scrollbarV]="true">
+                                <ngx-datatable-column name="Name" prop="name" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="text" id="hidden-label-form-1" class="form-control"
+                                            name="itemName{{ rowIndex }}" [(ngModel)]="item.itemName" placeholder = "Item Name"
+                                            #itemName="ngModel" [ngClass]="{
+                                                'is-invalid': userForm.submitted && itemName.invalid,
+                                                'is-valid': userForm.submitted && !itemName.invalid
+                                                }" required />
+                                        <div *ngIf="
+                                            userForm.submitted &&
+                                            (itemName.invalid || itemName.errors?.required)
+                                            " class="invalid-tooltip">
+                                            Please provide a valid Name.
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Packing" prop="packing" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="packList" class="form-control" bindLabel="packName"
+                                            bindValue="packName" [(ngModel)]="item.packName" style="width: 119px"
+                                            name="packName{{ rowIndex }}" #packName="ngModel"
+                                            placeholder="No Packing selected" (keyup.enter)="AddPack(item.packName,rowIndex)"
+                                            (search)="OnPackChange($event)" (ngModelChange)="qtyChange(item.packName,rowIndex)"
+                                            #select2 (change)="select2.blur()">
+                                        </ng-select>
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Qty Per Pack" prop="QtyPerPack" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-1" class="form-control" placeholder="Qty Per Pack"
+                                            name="qytPerPack{{ rowIndex }}" #qytPerPack="ngModel"
+                                            [(ngModel)]="item.qty_per_pack" />
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="MGF" prop="mgf" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="manfList" bindLabel="manufacturerName" bindValue="id"
+                                            class="form-control" style="width: 119px"
+                                            [(ngModel)]="item.manufactureEntity.id" name="mafnn{{ rowIndex }}"
+                                            #mafnn="ngModel" #select1 (keyup.enter)="AddManf(item.manufactureEntity.id,rowIndex)"
+                                            (search)="OnManfChange($event)" placeholder="No Mfg selected"
+                                            (change)="select1.blur()">
+                                        </ng-select>
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Group" prop="group" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="grpList" bindLabel="groupName" bindValue="id"
+                                            class="form-control" style="width: 119px" [(ngModel)]="item.groupEntity.id"
+                                            name="groupname{{ rowIndex }}" #groupname="ngModel"
+                                            (keyup.enter)="AddGrp(item.groupEntity.id,rowIndex)" (search)="OnGrpChange($event)"
+                                            placeholder="No Group selected" #select3 (change)="select3.blur()">
+                                        </ng-select>
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Store Type" prop="storeType" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="strTypeList" bindLabel="storeTypeName" bindValue="id"
+                                            class="form-control" style="width: 119px"
+                                            [(ngModel)]="item.storeTypeEntity.id" name="storeTypeName{{ rowIndex }}"
+                                            #storeTypeName="ngModel" (keyup.enter)="AddStrType(item.storeTypeEntity.id,rowIndex)"
+                                            (search)="OnStrTypeChange($event)" placeholder="No Store Type selected"
+                                            #select4 (change)="select4.blur()">
+                                        </ng-select>
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Schedule" prop="schedule" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="schList" bindLabel="schedulerName" bindValue="id"
+                                            class="form-control" style="width: 119px"
+                                            [(ngModel)]="item.scheduleEntity.id" name="schedulerName{{ rowIndex }}"
+                                            #schedulerName="ngModel" (keyup.enter)="AddSch(item.scheduleEntity.id,rowIndex)"
+                                            (search)="OnSchChange($event)" placeholder="No Schedule selected" #select5
+                                            (change)="select5.blur()">
+                                        </ng-select>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Composition" prop="composition" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="compList" bindLabel="compName" bindValue="id"
+                                            class="form-control" style="width: 119px"
+                                            [(ngModel)]="item.compositionEntity.id" name="compName{{ rowIndex }}"
+                                            #compName="ngModel" (keyup.enter)="AddComp(item.compositionEntity.id,rowIndex)"
+                                            (search)="OnCmpChange($event)" placeholder="No Composition selected"
+                                            #select6 (change)="select6.blur()">
+                                        </ng-select>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="HSN" prop="hsn" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="hsnList" bindLabel="hsnName" bindValue="id"
+                                            class="form-control" style="width: 119px" [(ngModel)]="item.hsnsac.id"
+                                            name="hsnn{{ rowIndex }}" #hsnn="ngModel"
+                                            (keyup.enter)="Addhsn(item.hsnsac.id,rowIndex)" (search)="OnHsnChange($event)"
+                                            placeholder="No HSN selected" #select7 (change)="select7.blur()">
+                                        </ng-select>
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Min Discount" prop="MinDiscount" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-5" class="form-control"
+                                            name="minDis{{ rowIndex }}" #minDis="ngModel" [(ngModel)]="item.min_amt"
+                                            placeholder="Min Dis" (change)="limitDecimalPlaces($event, 2)" />
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Max Discount" prop="MaxDiscount" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-5" class="form-control"
+                                            name="maxDis{{ rowIndex }}" #maxDis="ngModel" [(ngModel)]="item.max_amt"
+                                            placeholder="Max Dis" pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"
+                                            (change)="limitDecimalPlaces($event, 2)" />
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Min Quantity" prop="MinQuantity" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-5" class="form-control" placeholder="Min Quantity"
+                                            name="minQty{{ rowIndex }}" #minQty="ngModel" [(ngModel)]="item.min_qty"
+                                            placeholder="min" (change)="limitDecimalPlaces($event, 2)" />
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Max Quantity" prop="Maxquantity" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-5" class="form-control" placeholder ="Max Quantity"
+                                            name="maxQty{{ rowIndex }}" maxQty="ngModel" [(ngModel)]="item.max_qty"
+                                            placeholder="max" (change)="limitDecimalPlaces($event, 2)" />
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Rate A" prop="RateA" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-5" class="form-control" placeholder ="Raate A"
+                                            [(ngModel)]="item.rateA" name="rateA{{ rowIndex }}" #rateA="ngModel"
+                                            (change)="limitDecimalPlaces($event, 2)" />
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Rate B" prop="RateB" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-5" class="form-control" placeholder ="Raate B"
+                                            [(ngModel)]="item.rateB" name="rateB{{ rowIndex }}" #rateB="ngModel"
+                                            (change)="limitDecimalPlaces($event, 2)" />
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Rate C" prop="RateC" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-5" class="form-control" placeholder ="Raate C"
+                                            [(ngModel)]="item.rateC" name="rateC{{ rowIndex }}" #rateC="ngModel"
+                                            (change)="limitDecimalPlaces($event, 2)" />
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Rate D" prop="RateD" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <input type="number" id="hidden-label-form-5" class="form-control" placeholder ="Raate D"
+                                            [(ngModel)]="item.rateD" name="rateD{{ rowIndex }}" #rateD="ngModel"
+                                            (change)="limitDecimalPlaces($event, 2)" />
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="GST" prop="gst" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="gstTypeList" bindLabel="gstTypeName" bindValue="gstTypeName"
+                                            class="form-control" style="width: 119px" [(ngModel)]="item.gstType" placeholder ="Select GST"
+                                            name="gstn{{rowIndex}}" #gstn="ngModel" placeholder="No GST selected"
+                                            #select8 (change)="select8.blur()">
+                                        </ng-select>
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Discount Slab" prop="DiscountSlab" [width]="130">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                        <ng-select [items]="discountList" bindLabel="discountSlabName" bindValue="id"
+                                            class="form-control" style="width: 119px"
+                                            [(ngModel)]="item.discSalbEntity.id" name="discn{{rowIndex}}" 
+                                            #discn="ngModel" (keyup.enter)="AddDiscountSlab(item.discSalbEntity.id,rowIndex)"
+                                            (search)="OnDiscChange($event)" placeholder="No Discount Slab selected"
+                                            #select9 (change)="select9.blur()" (keydown.Tab)="addItem()">
+                                        </ng-select>
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Actions">
+                                    <ng-template let-item="row" ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                        [width]="100">
+                                        <a *ngIf="rowIndex != Items.length - 1 || Items.length > 1"
+                                            (click)="removeItem(rowIndex)"><i
+                                                class="ft-trash text-danger cursor-pointer"></i></a>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                            <button type="button" class="btn btn-primary btn-sm" (click)="addItem()">
+                                Add Item
+                            </button>
+                        </div>
+                        <!-- ngx-datatable-filter -->
+                        
+                    </form>
+                    <button type="button" class="btn btn-primary mr-2 ml-2 mb-2" (click)="createItem(userForm)">
+                        <i class="ft-check-square mr-1"></i>
+                        Save
+                    </button>
+
+                    <button type="button" class="btn btn-secondary ml-2 mb-2" (click)="goBack()">
+                        <i class="ft-x mr-1"></i>Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

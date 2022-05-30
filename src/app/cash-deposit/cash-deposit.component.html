@@ -1,0 +1,89 @@
+<section id="tooltip-validation">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form
+              class="needs-validation"
+              #orderForm="ngForm"
+              (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)"
+            >
+              <div class="form-row">
+                <div class="col-md-3 mb-1 form-group">
+                  <label for="validationTooltip01">Select Date</label>
+                  <input
+                    name="fname"
+                    placeholder="yyyy-mm-dd"
+                    class="form-control"
+                    id="validationTooltip01"
+                    [(ngModel)]="model.entryDate"
+                    #fname="ngModel"
+                    type="date"
+                    [ngClass]="{
+                      'is-invalid': orderForm.submitted && fname.invalid,
+                      'is-valid': orderForm.submitted && !fname.invalid
+                    }"
+                    required
+                  />
+                  <div
+                    *ngIf="orderForm.submitted && !fname.errors?.required"
+                    class="valid-tooltip"
+                  >
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-3 mb-1 form-group">
+                  <label for="validationTooltip01">Entry BankName</label>
+                  <select
+                    id="basic-form-6"
+                    [(ngModel)]="model.bankName"
+                    name="bestBefore"
+                    #bestBefore="ngModel"
+                    required
+                    class="form-control"
+                  >
+                    <!-- <option
+                      value="{{ best.bestBefore }}"
+                      *ngFor="let best of beforeDetails"
+                    >
+                      {{ best.bestBefore }}
+                    </option> -->
+                    <option>Selet Bank</option>
+                  </select>
+                  <div
+                    *ngIf="orderForm.submitted && !bestBefore.errors?.required"
+                    class="valid-tooltip"
+                  >
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-3 mb-1 form-group">
+                  <label for="validationTooltip01">Entry Amount</label>
+                  <input
+                    type="number"
+                    name="invoiceNo"
+                    class="form-control"
+                    [(ngModel)]="model.amount"
+                    #invoiceNo="ngModel"
+                    [ngClass]="{
+                      'is-invalid': orderForm.submitted && invoiceNo.invalid,
+                      'is-valid': orderForm.submitted && !invoiceNo.invalid
+                    }"
+                    required
+                  />
+                  <div
+                    *ngIf="orderForm.submitted && !invoiceNo.errors?.required"
+                    class="valid-tooltip"
+                  >
+                    Looks good!
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

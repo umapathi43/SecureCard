@@ -1,0 +1,31 @@
+.ng-select.select_width {
+  border: 0px;
+  min-height: 0px;
+  border-radius: 0;
+}
+.ng-select.select_width ::ng-deep .ng-select-container {
+  height: 25px !important;
+}
+.ng-select.ng-select-single .ng-select-container .ng-value-container {
+  font-size: 0.7em;
+}
+.ng-dropdown-panel.ng-select-top,
+.ng-dropdown-panel.ng-select-bottom {
+  font-size: .7em !important;
+}
+.datatable-header-cell-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+.core-bootstrap .form-control {
+  border: 0;
+}
+
+.core-bootstrap .form-control:focus {
+  border-bottom: 1px solid #975aff;
+  border-radius: 0;
+}
+::ng-deep .ngx-datatable .datatable-body-cell,
+.ngx-datatable .datatable-header-cell {
+  font-size: 10px !important;
+}

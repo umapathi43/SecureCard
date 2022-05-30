@@ -1,0 +1,134 @@
+<div class="col-lg-12 col-12">
+  <ngx-spinner></ngx-spinner>
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" *ngIf="!CustomeId">Add Account</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Account</h4>
+    </div>
+    <div class="card-content" id="frmcard">
+      <div class="card-body">
+        <form
+          #userForm="ngForm"
+          (ngSubmit)="userForm.form.valid && createAcount()"
+        >
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Name</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control"
+                  name="cname"
+                  [(ngModel)]="model.actName"
+                  #cname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && cname.invalid,
+                    'is-valid': userForm.submitted && !cname.invalid
+                  }"
+                  required
+                />
+                <div
+                  *ngIf="
+                    userForm.submitted &&
+                    (cname.invalid || cname.errors?.required)
+                  "
+                  class="invalid-tooltip"
+                >
+                  Please provide a valids Name.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Account Head</label>
+                <select
+                  id="basic-form-6"
+                  name="group"
+                  class="form-control"
+                  [(ngModel)]="model.actGroup"
+                  #group="ngModel"
+                  required
+                >
+                  <option value="none" selected disabled>Account Head</option>
+                  <option
+                    *ngFor="let item of accHeadArray"
+                    value="{{ item.accountHeadName }}"
+                  >
+                    {{ item.accountHeadName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Account Type</label>
+                <select
+                  id="basic-form-6"
+                  name="tye"
+                  class="form-control"
+                  [(ngModel)]="model.actType"
+                  #type="ngModel"
+                  required
+                >
+                  <option value="none" selected disabled>Account Type</option>
+                  <option
+                    *ngFor="let item of accTypeArray"
+                    value="{{ item.accountTypeName }}"
+                  >
+                    {{ item.accountTypeName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Opening Balance</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="balance"
+                  [(ngModel)]="model.openingBal"
+                  #balance="ngModel"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="hidden-label-form-8">Opening Balance Date</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="dd-mm-yyyy"
+                    name="dp"
+                    #dp="ngModel"
+                    [(ngModel)]="model.openingBalDate"
+                    type="date"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mr-2" *ngIf="!CustomeId">
+            <i class="ft-check-square mr-1"></i>Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(account)"
+          >
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
